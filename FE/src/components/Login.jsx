@@ -3,7 +3,8 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 
 export const styles = {
-  container: 'w-[384px] h-[485px] rounded-[16px] flex flex-col gap-[48px]  p-8',
+  container:
+    'w-[448px] h-fit rounded-[16px] flex flex-col gap-[48px]  p-8 bg-white',
   header: 'text-[#0D1118] text-center text-[28px] font-bold',
   form: 'flex flex-col items-start gap-4 w-full text-sm',
   inputContainer: 'flex flex-col gap-1 w-full text-sm',
