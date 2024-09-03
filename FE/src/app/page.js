@@ -1,11 +1,11 @@
-import Footer from '@/components/Footer';
 import Login from '@/components/Login';
-import Navbar from '@/components/Navbar';
+import SignUp from '@/components/SignUp';
 
 export default function Home() {
   return (
-    <main className="w-full">
-      <Login />
+    <main className="w-full bg-[#ccc] h-screen">
+      {/* <Login /> */}
+      <SignUp />
     </main>
   );
 }
