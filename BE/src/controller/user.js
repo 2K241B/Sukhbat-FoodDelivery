@@ -23,3 +23,14 @@ export const createUser = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+
+export const getUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await userModel.findById(id);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
