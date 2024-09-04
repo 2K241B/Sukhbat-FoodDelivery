@@ -3,6 +3,7 @@ import {
   createUser,
   getUser,
   getUsers,
+  userDelete,
   UserUpdate,
 } from '../controller/user.js';
 
@@ -12,6 +13,7 @@ user
   .post('/create', createUser)
   .get('/getUser/:id', getUser)
   .get('/getUsers', getUsers)
-  .post('/userUpdate/:id', UserUpdate);
+  .post('/userUpdate/:id', UserUpdate)
+  .delete('/userDelete/:id', userDelete);
 
 export default user;
