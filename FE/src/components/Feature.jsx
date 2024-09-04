@@ -26,9 +26,9 @@ const content = [
 ];
 
 const styles = {
-  container: 'flex w-[1200px] items-start gap-[47px]',
+  container: 'flex w-[1200px] items-start gap-[47px] my-[122px] mx-[120px]',
   subContainer:
-    'flex flex-col p-4 rounded-[16px] border-[1px] bg-white border-[#D6D8DB] text-[#272727] w-[264.75px] h-[155px] justify-center items-start gap-[15px]',
+    'flex flex-col p-4 rounded-[16px] border-[1px] bg-white border-[#D6D8DB] text-[#272727] min-w-[264.75px] min-h-[155px] justify-center items-start gap-[15px]',
   textContainer: 'flex flex-col items gap-1 items-start justify-center',
   header: 'text-[18px] font-bold',
   p: 'text-[13px] text-[#272727] opacity-[0.75]',
