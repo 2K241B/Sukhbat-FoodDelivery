@@ -8,14 +8,8 @@ import UserPage from '@/components/UserPage';
 
 export default function Home() {
   return (
-    <main className="w-full h-screen">
-      {/* <Login /> */}
-      {/* <SignUp /> */}
-      {/* <ForgetPass /> */}
-      {/* <NotFoundPage /> */}
-      {/* <UserPage /> */}
-      {/* <Footer /> */}
-      {/* <Feature /> */}
+    <main className="flex items-center justify-center pt-[111px] pb-[75px]">
+      <Login />
     </main>
   );
 }
