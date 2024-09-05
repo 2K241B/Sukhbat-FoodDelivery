@@ -49,13 +49,11 @@ export const getUsers = async (req, res) => {
 export const UserUpdate = async (req, res) => {
   const { id } = req.params;
 
-  const { name, email, phone } = req.body;
+  const updatedUser = req.body;
 
   try {
     const response = await userModel.findByIdAndUpdate(id, {
-      name: name,
-      email: email,
-      phone: phone,
+      updatedUser,
     });
     return res.status(200).json(response);
   } catch (error) {
