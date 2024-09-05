@@ -13,7 +13,7 @@ user
   .post('/create', createUser)
   .get('/getUser/:id', getUser)
   .get('/getUsers', getUsers)
-  .post('/userUpdate/:id', UserUpdate)
+  .put('/userUpdate/:id', UserUpdate)
   .delete('/userDelete/:id', userDelete);
 
 export default user;
