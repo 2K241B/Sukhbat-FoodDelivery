@@ -3,23 +3,23 @@ import bcrypt from 'bcrypt';
 
 const saltRounds = process.env.SALTROUND;
 
-export const createUser = async (req, res) => {
+export const createUser = async (req, res, next) => {
   const { name, email, password, phone, role } = req.body;
 
   try {
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-      bcrypt.hash(password, salt, async (err, hash) => {
-        const response = await userModel.create({
-          name,
-          email,
-          password: hash,
-          phone,
-          role,
-        });
-        return res.status(200).json(response);
-      });
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(password, salt);
+
+    const response = await userModel.create({
+      name,
+      email,
+      password: hash,
+      phone,
+      role,
     });
+    return res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
