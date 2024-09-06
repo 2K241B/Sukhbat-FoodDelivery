@@ -1,6 +1,11 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import EyeIcon from './icons/eyeIcon';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { axiosInstance } from '@/lib/axios';
+import { useRouter } from 'next/navigation';
 
 export const styles = {
   container:
@@ -18,12 +23,26 @@ export const styles = {
 };
 
 export const Login = () => {
+  const router = useRouter();
+  const formRef = useRef();
+  useEffect(() => {}, []);
+
+  const handlerClick = async () => {
+    const data = await axiosInstance.post('/auth/login', {
+      email: formRef.current[0].value,
+      password: formRef.current[1].value,
+    });
+    console.log(data);
+    if (data.status === 200) {
+      return router.push('/home');
+    }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h2>Нэвтрэх</h2>
       </div>
-      <form className={styles.form}>
+      <form ref={formRef} className={styles.form}>
         <div className={styles.inputContainer}>
           <h3>Имэйл </h3>
           <Input
@@ -41,7 +60,9 @@ export const Login = () => {
         </div>
       </form>
       <div className={styles.subContainer}>
-        <Button className={styles.ButtonStyle1}>Нэвтрэх</Button>
+        <Button onClick={handlerClick} className={styles.ButtonStyle1}>
+          Нэвтрэх
+        </Button>
         <p>Эсвэл</p>
         <Button className={styles.ButtonStyle2}>Бүртгүүлэх</Button>
       </div>
