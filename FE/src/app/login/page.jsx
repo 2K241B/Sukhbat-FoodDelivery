@@ -101,7 +101,13 @@ export const page = () => {
           Нэвтрэх
         </Button>
         <p>Эсвэл</p>
-        <Button className={styles.ButtonStyle2}>Бүртгүүлэх</Button>
+        <Button
+          type="button"
+          onClick={() => router.push('/signup')}
+          className={styles.ButtonStyle2}
+        >
+          Бүртгүүлэх
+        </Button>
       </div>
     </form>
   );
