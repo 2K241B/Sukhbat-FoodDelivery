@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { EyeIcon, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 import { axiosInstance } from '@/lib/axios';
 
 export const styles = {
@@ -37,7 +37,7 @@ export const page = () => {
     }));
   };
 
-  const debounceFn = useMemo(() => _.debounce(handleOnChange, 500), []);
+  const debounceFn = useMemo(() => debounce(handleOnChange, 500), []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
