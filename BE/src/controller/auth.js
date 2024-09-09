@@ -25,25 +25,3 @@ export const Login = async (req, res) => {
     return res.status(500).json(error);
   }
 };
-export const CookieCheck = (req, res) => {
-  const token = req.cookies.token;
-
-  try {
-    if (token) {
-      const verify = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
-      res.json({
-        login: true,
-        data: verify,
-      });
-    } else {
-      console.log(token);
-      res.json({
-        login: false,
-        data: 'error',
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json(error);
-  }
-};
