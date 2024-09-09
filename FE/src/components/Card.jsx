@@ -25,7 +25,7 @@ export const Card = ({ imageSrc, title, price, salePrice }) => {
       <div>
         <h2 className={styles.title}>{title}</h2>
         <div className="flex gap-4">
-          <p className={styles.price}>{price}₮</p>
+          {price && <p className={styles.price}>{price}₮</p>}
           {salePrice && <p className={styles.salePrice}>{salePrice}₮</p>}
         </div>
       </div>
