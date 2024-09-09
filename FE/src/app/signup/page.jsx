@@ -10,7 +10,7 @@ import debounce from 'lodash/debounce';
 
 const style = {
   container:
-    'p-8 flex flex-col gap-12 rounded-[16px] max-w-[448px] h-fit bg-white m-auto',
+    'pt-[106px] pb-[139px] flex flex-col gap-12 rounded-[16px] max-w-[448px] h-fit bg-white m-auto',
   form: 'flex flex-col gap-3',
   bottomContainer: 'flex flex-col gap-8',
   checkboxContainer: 'flex gap-2 px-4 py-2 text-sm ',
