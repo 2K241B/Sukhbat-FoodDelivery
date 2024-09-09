@@ -49,7 +49,7 @@ export const page = () => {
           phone: formData.phoneNumber,
           password: formData.password,
         });
-        if (response.status === 200) router.push('/');
+        if (response.status === 200) router.push('/login');
       } catch (error) {
         console.error(error);
       }
