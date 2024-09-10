@@ -1,4 +1,4 @@
-import CartIcon from './icons/CartIcon';
+import Cart from './Cart';
 import LogoIcon from './icons/LogoIcon';
 import SearchIcon from './icons/SearchIcon';
 import UserIcon from './icons/UserIcon';
@@ -32,10 +32,7 @@ export const Navbar = () => {
             <SearchIcon />
             <Input className="border-0 h-fit" />
           </div>
-          <div className={styles.contentContainer}>
-            <CartIcon />
-            <p>Сагс</p>
-          </div>
+          <Cart />
           <div className={styles.contentContainer}>
             <UserIcon />
             <p>Нэвтрэх</p>
