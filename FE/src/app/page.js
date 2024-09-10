@@ -13,6 +13,7 @@ export default function Home() {
           name="Өглөөний хоол"
           imageSrc={food}
           price={4800}
+          salePrice={6000}
           recipe="Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр  "
         />
       </div>
