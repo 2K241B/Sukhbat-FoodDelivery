@@ -1,3 +1,5 @@
+'use client';
+import { useRouter } from 'next/navigation';
 import Cart from './Cart';
 import LogoIcon from './icons/LogoIcon';
 import SearchIcon from './icons/SearchIcon';
@@ -7,33 +9,48 @@ import { Input } from './ui/input';
 const styles = {
   container: 'min-w-[1440px] h-[57px] flex flex-row justify-center bg-white',
   subContainer: 'min-w-[1258px] px-6 py-2 flex justify-between items-center',
-  sidesContainer: 'flex items-center gap-2',
+  sidesContainer: 'flex items-center gap-2 cursor-pointer',
   contentContainer:
     'flex items-center gap-2 text-sm font-bold leading-4 spacing-[0,2px] px-4 py-2',
   input:
     'flex items-center px-4 py-2 gap-2 h-10 w-[260px] border-[#8B8E95] border-[1px] rounded-[8px]',
 };
-const content = ['НҮҮР', 'ХООЛНЫ ЦЭС', 'ХҮРГЭЛТИЙН БҮС'];
+const content = {
+  '': 'НҮҮР',
+  menu: 'ХООЛНЫ ЦЭС',
+  deliveryzone: 'ХҮРГЭЛТИЙН БҮС',
+};
 
 export const Navbar = () => {
+  const router = useRouter();
   return (
     <div className={styles.container}>
       <div className={styles.subContainer}>
         <div className={styles.sidesContainer}>
-          <LogoIcon />
+          <div onClick={() => router.push('/')}>
+            <LogoIcon />
+          </div>
           <div className={styles.contentContainer}>
-            {content.map((menuItems) => (
-              <p className={styles.contentContainer}>{menuItems}</p>
+            {Object.values(content).map((menuItems, i) => (
+              <p
+                onClick={() => router.push(`/${Object.keys(content)[i]}`)}
+                className={styles.contentContainer}
+              >
+                {menuItems}
+              </p>
             ))}
           </div>
         </div>
         <div className={styles.sidesContainer}>
           <div className={styles.input}>
             <SearchIcon />
-            <Input className="border-0 h-fit" />
+            <Input className="border-0 h-fit" placeholder="Хайх" />
           </div>
           <Cart />
-          <div className={styles.contentContainer}>
+          <div
+            onClick={() => router.push('/login')}
+            className={styles.contentContainer}
+          >
             <UserIcon />
             <p>Нэвтрэх</p>
           </div>
