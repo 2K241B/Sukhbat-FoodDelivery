@@ -82,7 +82,10 @@ export const OrderDetailDialog = ({
         <div className={styles.subContainer}>
           <div>
             <h2 className={styles.header}>{name}</h2>
-            <p className={styles.price}>{price}₮</p>
+            <div className="flex items-center gap-4">
+              <p className={styles.price}>{price}₮</p>
+              {salePrice && <p className={style.salePrice}>{salePrice}₮</p>}
+            </div>
           </div>
           <div className="flex flex-col gap-3">
             <h4 className={styles.subHeader}>Орц</h4>
