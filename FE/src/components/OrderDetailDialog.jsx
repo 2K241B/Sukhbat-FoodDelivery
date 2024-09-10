@@ -15,6 +15,7 @@ import kk from '@/components/assets/deliveryZone.png';
 import PlusIcon from './icons/PlusIcon';
 import MinusIcon from './icons/MinusIcon';
 import { useEffect, useState } from 'react';
+import Card from './Card';
 const style = {
   container: 'flex flex-col gap-[14px] items-start',
   imgContainer: 'relative w-[282px] min-h-[186px] rounded-2xl',
@@ -53,24 +54,12 @@ export const OrderDetailDialog = ({
   return (
     <Dialog>
       <DialogTrigger>
-        <div className={style.container}>
-          <div className={style.imgContainer}>
-            <Image src={imageSrc} className="rounded-2xl " />
-            {salePrice && (
-              <div className={style.discount}>
-                {Math.floor(((salePrice - price) / salePrice) * 100)}%
-              </div>
-            )}
-          </div>
-
-          <div>
-            <h2 className={style.title}>{name}</h2>
-            <div className="flex gap-4">
-              {price && <p className={style.price}>{price}₮</p>}
-              {salePrice && <p className={style.salePrice}>{salePrice}₮</p>}
-            </div>
-          </div>
-        </div>
+        <Card
+          title={name}
+          price={price}
+          salePrice={salePrice}
+          imageSrc={imageSrc}
+        />
       </DialogTrigger>
       <DialogContent className={styles.dialogContent}>
         <Image

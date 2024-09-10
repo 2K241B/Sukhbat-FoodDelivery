@@ -43,7 +43,7 @@ export const HomePageMain = () => {
           />
         </div>
       </div>
-      <div className="absolute top-0 left-0">
+      <div className="absolute top-0">
         <FooterBackground />
       </div>
     </div>

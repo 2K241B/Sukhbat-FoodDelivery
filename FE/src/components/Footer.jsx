@@ -30,7 +30,7 @@ const styles = {
   iconsContainer: 'flex gap-[18px] items-center p-[5px]',
   line: 'w-[1200px] h-[1px] bg-white',
   bottomText: 'text-center flex flex-col gap-2 font-normal',
-  background: 'absolute top-0 right-0',
+  background: 'absolute top-0',
 };
 
 export const Footer = () => {
