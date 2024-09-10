@@ -7,7 +7,7 @@ const page = () => {
     <div>
       {/* <ForgotPass /> */}
       {/* <ForgotPassOTP /> */}
-      {/* <NewPassword /> */}
+      <NewPassword />
     </div>
   );
 };

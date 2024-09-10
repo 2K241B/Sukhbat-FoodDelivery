@@ -1,3 +1,4 @@
+import Cart from '@/components/Cart';
 import Feature from '@/components/Feature';
 import HomePageMain from '@/components/HomePageMain';
 import OrderDetailDialog from '@/components/OrderDetailDialog';
