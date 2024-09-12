@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 
 const styles = {
   orderContainer:
-    'p-6 w-[432px] h-[639.9px] flex flex-col justify-between gap-10 rounded-2xl shadow-lg',
+    'p-6 w-[432px] h-[624px] flex flex-col justify-between gap-10 rounded-2xl shadow-lg',
   bottomContainer: 'grid grid-cols-2 text-[18px] items-center',
   button:
     'disabled:bg-[#EEEFF2] disabled:text-[#1C20243D] text-white bg-[#18BA51]',
