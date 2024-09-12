@@ -1,12 +1,12 @@
 import AdminSideBar from '@/components/AdminSideBar';
-import CreateFood from '@/components/CreateFood';
+import Foods from '@/components/Foods';
 
 const page = () => {
   return (
     <div>
       <div className="flex flex-row">
         <AdminSideBar />
-        <CreateFood />
+        <Foods />
       </div>
     </div>
   );
