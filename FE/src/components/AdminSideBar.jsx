@@ -1,8 +1,9 @@
 import DottedIcon from '@/components/icons/DottedIcon';
 import { Plus } from 'lucide-react';
 import { Button } from './ui/button';
+import CreateCategory from './CreateCategory';
 
-const styles = {
+export const styles = {
   container:
     'min-w-[402px] h-screen pl-[120px] py-[26px] pr-6 flex flex-col gap-10 bg-white',
   header: 'text-[22px] font-bold',
@@ -21,10 +22,7 @@ export const AdminSideBar = () => {
           <h4>Soup</h4>
           <DottedIcon />
         </Button>
-        <Button className={styles.categoryAdd}>
-          <Plus />
-          <h4>Create new category</h4>
-        </Button>
+        <CreateCategory />
       </div>
     </div>
   );
