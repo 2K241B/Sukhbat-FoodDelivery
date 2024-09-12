@@ -16,6 +16,7 @@ import PlusIcon from './icons/PlusIcon';
 import MinusIcon from './icons/MinusIcon';
 import { useEffect, useState } from 'react';
 import Card from './Card';
+import { X } from 'lucide-react';
 const style = {
   container: 'flex flex-col gap-[14px] items-start',
   imgContainer: 'relative w-[282px] min-h-[186px] rounded-2xl',
@@ -68,6 +69,9 @@ export const OrderDetailDialog = ({
           height={500}
           style={{ objectFit: 'cover' }}
         />
+        <DialogClose className="absolute right-6 flex">
+          <X />
+        </DialogClose>
         <div className={styles.subContainer}>
           <div>
             <h2 className={styles.header}>{name}</h2>
