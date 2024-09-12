@@ -32,7 +32,7 @@ const styles = {
   header: 'text-[28px] font-bold',
   subHeader: 'text-[18px] font-semibold',
   button: 'rounded-[10px] bg-[#18BA51] text-white h-10',
-  submitButton: ' bg-[#18BA51] text-white rounded-[4px]',
+  submitButton: ' bg-[#18BA51] text-white rounded-[4px] w-full h-12',
   current: 'min-w-[254px] flex items-center justify-center font-semibold',
   recipe:
     'text-[#767676] p-3 bg-[#F6F6F6] rounded-[8px] flex items-center justify-center',
