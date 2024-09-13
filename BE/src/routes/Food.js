@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   createFood,
+  foodDelete,
   FoodUpdate,
   getFood,
   getFoods,
@@ -12,6 +13,7 @@ food
   .post('/create', createFood)
   .get('/getFoods', getFoods)
   .get('/getFood/:id', getFood)
+  .delete('/foodDelete/:id', foodDelete);
   .put('/foodUpdate/:id', FoodUpdate);
 
 export default food;
