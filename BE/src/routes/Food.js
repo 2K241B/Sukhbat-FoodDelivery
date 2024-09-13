@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { createFood } from '../controller/food.js';
+import { createFood, getFoods } from '../controller/food.js';
 
 const food = Router();
 
-food.post('/create', createFood);
+food.post('/create', createFood).get('/getFoods', getFoods);
 
 export default food;
