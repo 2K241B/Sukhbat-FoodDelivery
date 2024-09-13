@@ -1,12 +1,16 @@
 import { model, Schema } from 'mongoose';
 
 const foodSchema = new Schema({
-  name: String,
-  image: String,
-  ingeredient: String,
-  price: '',
-  discount: '',
-  categoryId: '',
+  name: { type: String, required: [true, 'Name is required'] },
+  image: { type: String },
+  ingeredient: { type: String },
+  price: { type: String, required: [true, 'Price is required'] },
+  discount: { type: Number, default: 0 },
+  categoryId: {
+    type: Schema.ObjectId,
+    ref: 'category',
+    required: [true, 'CategoryId is required'],
+  },
 });
 
 export const foodModel = model('food', foodSchema);
