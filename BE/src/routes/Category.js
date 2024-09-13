@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  categoryDelete,
   categoryUpdate,
   createCategory,
   getCategories,
@@ -10,6 +11,7 @@ const category = Router();
 category
   .post('/create', createCategory)
   .get('/getCategories', getCategories)
-  .put('/categoryUpdate/:id', categoryUpdate);
+  .put('/categoryUpdate/:id', categoryUpdate)
+  .delete('/categoryDelete/:id', categoryDelete);
 
 export default category;
