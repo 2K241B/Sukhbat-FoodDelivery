@@ -12,7 +12,7 @@ const content = [
   'Хоймор хотхон ',
 ];
 const styles = {
-  container: 'px-[120px] pt-[61px] pb-[45px] flex flex-col gap-10',
+  container: 'pt-[61px] pb-[45px] flex flex-col gap-10 max-w-[1200px] m-auto',
   header:
     'flex items-center p-4 pb-[22px] text-[22px] font-bold text-[#272727] gap-1',
   subContainer: 'p-6 w-full flex flex-col gap-4 rounded-2xl shadow-md',

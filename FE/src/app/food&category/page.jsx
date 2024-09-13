@@ -4,7 +4,7 @@ import Foods from '@/components/Foods';
 const page = () => {
   return (
     <div>
-      <div className="flex flex-row">
+      <div className="flex flex-row ">
         <AdminSideBar />
         <Foods />
       </div>
