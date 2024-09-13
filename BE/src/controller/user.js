@@ -50,11 +50,15 @@ export const getUsers = async (req, res) => {
 export const UserUpdate = async (req, res) => {
   const { id } = req.params;
 
-  const updatedUser = req.body;
+  const { name, email, password, phone, role } = req.body;
 
   try {
     const response = await userModel.findByIdAndUpdate(id, {
-      updatedUser,
+      name,
+      email,
+      password,
+      phone,
+      role,
     });
     return res.status(200).json(response);
   } catch (error) {
