@@ -2,7 +2,7 @@ import TermOfServiceIcon from '@/components/icons/TermOfServiceIcon';
 
 const page = () => {
   return (
-    <div className="flex flex-col gap-6 items-start min-h-[1153px] pt-[48px] px-[120px]">
+    <div className="max-w-[1200px] m-auto pb-10 flex flex-col gap-6 items-start min-h-[1153px] pt-[48px] px-[120px]">
       <div className="flex items-center gap-1">
         <TermOfServiceIcon />
         <h3 className="text-[22px] font-bold">Нууцлалын бодлого</h3>
