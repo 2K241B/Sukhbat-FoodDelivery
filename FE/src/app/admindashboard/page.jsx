@@ -1,5 +1,6 @@
 import { SearchIcon } from '@/components/icons';
 import DottedIcon from '@/components/icons/DottedIcon';
+import Pagination from '@/components/Pagination';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -12,7 +13,8 @@ const dashboardTitles = [
 ];
 
 const styles = {
-  container: 'bg-[#F7F7F8] h-screen flex pt-[27px] justify-center',
+  container:
+    'bg-[#F7F7F8] h-screen flex pt-[27px] flex flex-col items-center gap-8',
   subContainer:
     'w-[1024px] h-[624px] bg-white rounded-[12px] border border-[#ECEDF0] flex flex-col',
   headerContainer: 'py-5 px-6 flex justify-between items-center',
@@ -56,6 +58,9 @@ const page = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="border-t w-[1024px] pt-5">
+        <Pagination />
       </div>
     </div>
   );
