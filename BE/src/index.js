@@ -6,6 +6,7 @@ import { Connect } from './utills/db.js';
 import user from './routes/User.js';
 import auth from './routes/Auth.js';
 import { sendMail } from './controller/mail.js';
+import category from './routes/Category.js';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ const PORT = process.env.PORT;
 app.use('/user', user);
 app.use('/auth', auth);
 app.get('/sendMail', sendMail);
+app.use('/category', category);
 
 app.listen(PORT, () => {
   Connect(process.env.MONGODB_CONNECTION_STRING);
