@@ -34,6 +34,7 @@ export const CreateFood = () => {
               Хоолны нэр
             </h3>
             <Input
+              name="foodName"
               className="bg-[#F4F4F4] h-[56px] px-3 text-[#8B8E95]"
               placeholder="Хоолны нэр"
             />
@@ -44,6 +45,7 @@ export const CreateFood = () => {
               Хоолны ангилал
             </h3>
             <Input
+              name="categoryName"
               className="bg-[#F4F4F4] h-[56px] px-3 text-[#8B8E95]"
               placeholder="Хоолны ангилал"
             />
@@ -54,6 +56,7 @@ export const CreateFood = () => {
               Хоолны орц
             </h3>
             <Input
+              name="ingeredient"
               className="bg-[#F4F4F4] h-[56px] px-3 text-[#8B8E95]"
               placeholder="Хоолны орц"
             />
@@ -64,6 +67,7 @@ export const CreateFood = () => {
               Хоолны үнэ
             </h3>
             <Input
+              name="price"
               className="bg-[#F4F4F4] h-[56px] px-3 text-[#8B8E95]"
               placeholder="Хоолны үнэ"
             />
@@ -73,6 +77,7 @@ export const CreateFood = () => {
             <Label htmlFor="discount">Хямдралтай эсэх</Label>
           </div>
           <Input
+            name="discount"
             className="bg-[#F4F4F4] h-[56px] px-3 text-[#8B8E95]"
             placeholder="Хямдралын %"
           />
