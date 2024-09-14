@@ -12,9 +12,11 @@ export default function Home() {
       <div className="p-20">
         <OrderDetailDialog
           name="Өглөөний хоол"
-          imageSrc={food}
-          price={4800}
-          salePrice={6000}
+          imageSrc={
+            'https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg'
+          }
+          price={6000}
+          // discount={20}
           recipe="Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр  "
         />
       </div>

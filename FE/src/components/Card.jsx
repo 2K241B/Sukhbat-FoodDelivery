@@ -10,23 +10,23 @@ const styles = {
   salePrice: 'text-lg line-through',
 };
 
-export const Card = ({ imageSrc, title, price, salePrice }) => {
+export const Card = ({ imageSrc, title, price, discount }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image src={imageSrc} className="rounded-2xl " />
-        {salePrice && (
-          <div className={styles.discount}>
-            {Math.floor(((salePrice - price) / salePrice) * 100)}%
-          </div>
-        )}
+        <Image src={imageSrc} fill objectFit="cover" className="rounded-2xl " />
+        {discount && <div className={styles.discount}>{discount}%</div>}
       </div>
 
       <div>
         <h2 className={styles.title}>{title}</h2>
         <div className="flex gap-4">
-          {price && <p className={styles.price}>{price}₮</p>}
-          {salePrice && <p className={styles.salePrice}>{salePrice}₮</p>}
+          {discount ? (
+            <p className={styles.price}>{price - (price / 100) * discount}₮</p>
+          ) : (
+            <p className={styles.price}>{price}₮</p>
+          )}
+          {discount && <p className={styles.salePrice}>{price}₮</p>}
         </div>
       </div>
     </div>

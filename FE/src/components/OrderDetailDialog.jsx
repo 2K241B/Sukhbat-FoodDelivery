@@ -28,7 +28,8 @@ const style = {
 };
 
 const styles = {
-  dialogContent: 'min-w-[981px] min-h-[564px] flex flex-row gap-[33px]',
+  dialogContent:
+    'min-w-[981px] min-h-[548px] flex flex-row gap-[33px] items-center',
   subContainer: 'flex flex-col gap-8 max-w-[384px] my-auto',
   header: 'text-[28px] font-bold',
   subHeader: 'text-[18px] font-semibold',
@@ -46,7 +47,7 @@ export const OrderDetailDialog = ({
   price,
   recipe,
   imageSrc,
-  salePrice,
+  discount,
 }) => {
   const [current, setCurrent] = useState(1);
   useEffect(() => {
@@ -58,26 +59,29 @@ export const OrderDetailDialog = ({
         <Card
           title={name}
           price={price}
-          salePrice={salePrice}
+          discount={discount}
           imageSrc={imageSrc}
         />
       </DialogTrigger>
       <DialogContent className={styles.dialogContent}>
-        <Image
-          src={imageSrc}
-          width={500}
-          height={500}
-          style={{ objectFit: 'cover' }}
-        />
-        <DialogClose className="absolute right-6 flex">
+        <div className="relative w-[500px] h-[500px]">
+          <Image src={imageSrc} fill style={{ objectFit: 'cover' }} />
+        </div>
+        <DialogClose className="absolute right-6 top-6">
           <X />
         </DialogClose>
         <div className={styles.subContainer}>
           <div>
             <h2 className={styles.header}>{name}</h2>
             <div className="flex items-center gap-4">
-              <p className={styles.price}>{price}₮</p>
-              {salePrice && <p className={style.salePrice}>{salePrice}₮</p>}
+              {discount ? (
+                <p className={styles.price}>
+                  {price - (price / 100) * discount}₮
+                </p>
+              ) : (
+                <p className={styles.price}>{price}₮</p>
+              )}
+              {discount && <p className={style.salePrice}>{price}₮</p>}
             </div>
           </div>
           <div className="flex flex-col gap-3">
