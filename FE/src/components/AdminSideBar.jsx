@@ -1,7 +1,10 @@
+'use client';
 import DottedIcon from '@/components/icons/DottedIcon';
 import { Plus } from 'lucide-react';
 import { Button } from './ui/button';
 import CreateCategory from './CreateCategory';
+import { useEffect, useState } from 'react';
+import { axiosInstance } from '@/lib/axios';
 
 export const styles = {
   container:
@@ -14,14 +17,28 @@ export const styles = {
   categoryContainer: 'flex flex-col gap-[26px]',
 };
 export const AdminSideBar = () => {
+  const [categories, setCategories] = useState();
+
+  const getCategories = async () => {
+    const res = await axiosInstance.get('/category/getCategories');
+    setCategories(res.data);
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   return (
     <div className={styles.container}>
       <h2 className={styles.header}>Food menu</h2>
       <div className={styles.categoryContainer}>
-        <Button className={styles.category}>
-          <h4>Soup</h4>
-          <DottedIcon />
-        </Button>
+        {categories &&
+          categories.map((category) => (
+            <Button className={styles.category}>
+              <h4>{category.name}</h4>
+              <DottedIcon />
+            </Button>
+          ))}
         <CreateCategory />
       </div>
     </div>
