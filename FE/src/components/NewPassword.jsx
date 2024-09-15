@@ -3,13 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { EyeIcon, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { axiosInstance } from '@/lib/axios';
 import { styles } from '@/app/login/page';
+import { DataContext } from '@/app/forgotpassword/page';
 
 export const NewPassword = () => {
   const router = useRouter();
+  const { userData } = useContext(DataContext);
   const [isHidePassword, setIsHidePassword] = useState(true);
   const [formData, setFormData] = useState({ NewPassword: '', rePassword: '' });
   const togglePasswordVisibility = () => setIsHidePassword((prev) => !prev);
@@ -26,7 +28,17 @@ export const NewPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData.NewPassword);
+    if (formData.NewPassword !== formData.rePassword) {
+      return console.log('password taarahgu bn');
+    } else {
+      const res = await axiosInstance.put(`/user/userUpdate/${userData._id}`, {
+        email: userData.email,
+        password: formData.NewPassword,
+      });
+      if (res.status === 200) {
+        router.push('/login');
+      }
+    }
   };
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
