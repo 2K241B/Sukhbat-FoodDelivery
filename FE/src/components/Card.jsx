@@ -10,11 +10,18 @@ const styles = {
   salePrice: 'text-lg line-through',
 };
 
-export const Card = ({ imageSrc, title, price, discount }) => {
+export const Card = ({ imageSrc, title, price, discount, alt }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image src={imageSrc} fill objectFit="cover" className="rounded-2xl " />
+        <Image
+          src={imageSrc}
+          fill
+          objectFit="cover"
+          className="rounded-2xl "
+          alt={alt}
+          sizes="(max-width: 282px), (max-height: 186px)"
+        />
         {discount && <div className={styles.discount}>{discount}%</div>}
       </div>
 

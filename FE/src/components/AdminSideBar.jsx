@@ -1,10 +1,9 @@
 'use client';
 import DottedIcon from '@/components/icons/DottedIcon';
-import { Plus } from 'lucide-react';
 import { Button } from './ui/button';
 import CreateCategory from './CreateCategory';
-import { useEffect, useState } from 'react';
-import { axiosInstance } from '@/lib/axios';
+import { useContext } from 'react';
+import { DataContext } from '@/app/food&category/page';
 
 export const styles = {
   container:
@@ -12,31 +11,35 @@ export const styles = {
   header: 'text-[22px] font-bold',
   category:
     ' w-full h-10 border-[#D6D8DB] border bg-white rounded-[8px] flex items-center justify-between py-2 px-4 text-black text-[18px] font-[500]',
+  selectedCategory:
+    ' w-full h-10 border-[#D6D8DB] border bg-[#18BA51] rounded-[8px] flex items-center justify-between py-2 px-4 text-black text-[18px] text-white font-[500]',
   categoryAdd:
     ' w-full h-10 border-[#D6D8DB] border bg-white rounded-[8px] flex items-center py-2 px-4 gap-2 text-[#5E6166] justify-start',
   categoryContainer: 'flex flex-col gap-[26px]',
 };
 export const AdminSideBar = () => {
-  const [categories, setCategories] = useState();
-
-  const getCategories = async () => {
-    const res = await axiosInstance.get('/category/getCategories');
-    setCategories(res.data);
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
-
+  const { categories, setSelectedCategory, selectedCategory } =
+    useContext(DataContext);
   return (
     <div className={styles.container}>
       <h2 className={styles.header}>Food menu</h2>
       <div className={styles.categoryContainer}>
         {categories &&
           categories.map((category) => (
-            <Button className={styles.category}>
+            <Button
+              className={
+                selectedCategory === category.name
+                  ? styles.selectedCategory
+                  : styles.category
+              }
+              onClick={() => setSelectedCategory(category.name)}
+            >
               <h4>{category.name}</h4>
-              <DottedIcon />
+              <DottedIcon
+                color={
+                  selectedCategory === category.name ? '#ffffff' : '#1C1B1F'
+                }
+              />
             </Button>
           ))}
         <CreateCategory />

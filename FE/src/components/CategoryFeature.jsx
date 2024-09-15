@@ -36,6 +36,7 @@ export const CategoryFeature = ({ categoryName, data }) => {
                 price={data.price}
                 discount={data.discount <= 0 ? null : data.discount}
                 recipe={data.ingeredient}
+                alt={data.name}
               />
             ))}
       </div>
