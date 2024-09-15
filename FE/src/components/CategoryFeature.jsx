@@ -1,6 +1,7 @@
 import Card from './Card';
 import ArrowIcon from './icons/ArrowIcon';
 import TermOfServiceIcon from './icons/TermOfServiceIcon';
+import OrderDetailDialog from './OrderDetailDialog';
 
 const styles = {
   container: ' w-[1200px] mx-auto flex flex-col gap-6',
@@ -11,7 +12,7 @@ const styles = {
   cardContainer: 'flex items-center gap-6',
 };
 
-export const CategoryFeature = ({ categoryName = 'categoryName' }) => {
+export const CategoryFeature = ({ categoryName, data }) => {
   return (
     <div className={styles.container}>
       <div className={styles.subContainer}>
@@ -25,7 +26,18 @@ export const CategoryFeature = ({ categoryName = 'categoryName' }) => {
         </div>
       </div>
       <div className={styles.cardContainer}>
-        <Card title="" price="" salePrice="" />
+        {data &&
+          data
+            .slice(0, 4)
+            .map((data) => (
+              <OrderDetailDialog
+                name={data.name}
+                imageSrc={data.image}
+                price={data.price}
+                discount={data.discount <= 0 ? null : data.discount}
+                recipe={data.ingeredient}
+              />
+            ))}
       </div>
     </div>
   );
