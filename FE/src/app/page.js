@@ -14,7 +14,6 @@ export default function Home() {
     const { data } = await axiosInstance.get('/food/getFoods');
     const groupData = groupBy(data, 'categoryId.name');
     setFoods(groupData);
-    console.log(Object.keys(groupData));
   };
   useEffect(() => {
     getFoods();

@@ -48,6 +48,7 @@ export const OrderDetailDialog = ({
   recipe,
   imageSrc,
   discount,
+  alt,
 }) => {
   const [current, setCurrent] = useState(1);
   useEffect(() => {
@@ -61,11 +62,12 @@ export const OrderDetailDialog = ({
           price={price}
           discount={discount}
           imageSrc={imageSrc}
+          alt={alt}
         />
       </DialogTrigger>
       <DialogContent className={styles.dialogContent}>
         <div className="relative w-[500px] h-[500px]">
-          <Image src={imageSrc} fill style={{ objectFit: 'cover' }} />
+          <Image src={imageSrc} fill style={{ objectFit: 'cover' }} alt={alt} />
         </div>
         <DialogClose className="absolute right-6 top-6">
           <X />
