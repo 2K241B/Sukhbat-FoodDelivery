@@ -37,7 +37,7 @@ const styles = {
   submitButton: ' bg-[#18BA51] text-white rounded-[4px] w-full h-12',
   current: 'min-w-[254px] flex items-center justify-center font-semibold',
   recipe:
-    'text-[#767676] p-3 bg-[#F6F6F6] rounded-[8px] flex items-center justify-center',
+    'text-[#767676] p-3 bg-[#F6F6F6] rounded-[8px] flex items-center justify-start',
   price: 'text-[18px] font-semibold text-[#18BA51]',
   buttonContainer: 'flex justify-between gap-5',
 };

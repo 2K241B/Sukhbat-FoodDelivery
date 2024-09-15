@@ -1,24 +1,34 @@
-import Cart from '@/components/Cart';
+'use client';
+import CategoryFeature from '@/components/CategoryFeature';
 import Feature from '@/components/Feature';
 import HomePageMain from '@/components/HomePageMain';
+import { axiosInstance } from '@/lib/axios';
+import { useEffect, useState } from 'react';
+import groupBy from 'lodash/groupBy';
 import OrderDetailDialog from '@/components/OrderDetailDialog';
-import food from '@/components/assets/cardFood.png';
 
 export default function Home() {
+  const [foods, setFoods] = useState();
+
+  const getFoods = async () => {
+    const { data } = await axiosInstance.get('/food/getFoods');
+    const groupData = groupBy(data, 'categoryId.name');
+    setFoods(groupData);
+    console.log(Object.keys(groupData));
+  };
+  useEffect(() => {
+    getFoods();
+  }, []);
+
   return (
     <main>
       <HomePageMain />
       <Feature />
-      <div className="p-20">
-        <OrderDetailDialog
-          name="Өглөөний хоол"
-          imageSrc={
-            'https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg'
-          }
-          price={6000}
-          // discount={20}
-          recipe="Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр  "
-        />
+      <div className="flex flex-col gap-20 pb-20">
+        {foods &&
+          Object.keys(foods).map((category) => (
+            <CategoryFeature categoryName={category} data={foods[category]} />
+          ))}
       </div>
     </main>
   );
