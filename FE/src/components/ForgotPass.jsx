@@ -3,9 +3,12 @@ import { styles } from '@/app/login/page';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import debounce from 'lodash/debounce';
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
+import { axiosInstance } from '@/lib/axios';
+import { DataContext } from '@/app/forgotpassword/page';
 
 export const ForgotPass = () => {
+  const { setPageCurrent, setUserData } = useContext(DataContext);
   const [formData, setFormData] = useState({ email: '' });
   const handleOnChange = (event) => {
     setFormData((prev) => ({
@@ -16,6 +19,14 @@ export const ForgotPass = () => {
   const debounceFn = useMemo(() => debounce(handleOnChange, 500), []);
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const res = await axiosInstance.post('/otp/create', {
+      email: formData.email,
+    });
+    if (res.status === 200) {
+      setPageCurrent(1);
+      setUserData(res.data);
+    }
   };
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
