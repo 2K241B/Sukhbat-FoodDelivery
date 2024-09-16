@@ -23,6 +23,7 @@ const content = {
 
 export const Navbar = () => {
   const router = useRouter();
+  const token = false;
   return (
     <div className={styles.container}>
       <div className={styles.subContainer}>
@@ -47,13 +48,20 @@ export const Navbar = () => {
             <Input className="border-0 h-fit" placeholder="Хайх" />
           </div>
           <Cart />
-          <div
-            onClick={() => router.push('/login')}
-            className={styles.contentContainer}
-          >
-            <UserIcon />
-            <p>Нэвтрэх</p>
-          </div>
+          {token ? (
+            <div className={styles.contentContainer}>
+              <UserIcon color="#18BA51" />
+              <p className="text-[#18BA51]">Хэрэглэгч</p>
+            </div>
+          ) : (
+            <div
+              onClick={() => router.push('/login')}
+              className={styles.contentContainer}
+            >
+              <UserIcon />
+              <p>Нэвтрэх</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
