@@ -85,7 +85,12 @@ export const page = () => {
               className="cursor-pointer"
             />
           </div>
-          <p className="text-end">Нууц үг сэргээх</p>
+          <p
+            className="text-end cursor-pointer"
+            onClick={() => router.push('/forgotpassword')}
+          >
+            Нууц үг сэргээх
+          </p>
         </div>
       </div>
       <div className={styles.subContainer}>
