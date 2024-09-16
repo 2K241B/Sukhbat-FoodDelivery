@@ -5,6 +5,8 @@ import LogoIcon from './icons/LogoIcon';
 import SearchIcon from './icons/SearchIcon';
 import UserIcon from './icons/UserIcon';
 import { Input } from './ui/input';
+import { useCookies } from 'next-client-cookies';
+import { jwtDecode } from 'jwt-decode';
 
 const styles = {
   container: 'min-w-[1440px] h-[57px] flex flex-row justify-center bg-white',
@@ -22,8 +24,14 @@ const content = {
 };
 
 export const Navbar = () => {
+  const cookies = useCookies();
+  const encodedToken = cookies.get('token');
+
+  if (encodedToken) {
+    const decoded = jwtDecode(encodedToken);
+  }
+
   const router = useRouter();
-  const token = false;
   return (
     <div className={styles.container}>
       <div className={styles.subContainer}>
@@ -48,8 +56,11 @@ export const Navbar = () => {
             <Input className="border-0 h-fit" placeholder="Хайх" />
           </div>
           <Cart />
-          {token ? (
-            <div className={styles.contentContainer}>
+          {encodedToken ? (
+            <div
+              onClick={() => router.push('/profile')}
+              className={styles.contentContainer}
+            >
               <UserIcon color="#18BA51" />
               <p className="text-[#18BA51]">Хэрэглэгч</p>
             </div>
