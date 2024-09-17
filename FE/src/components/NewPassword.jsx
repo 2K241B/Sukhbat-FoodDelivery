@@ -2,20 +2,23 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { EyeIcon, EyeOff } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { axiosInstance } from '@/lib/axios';
 import { styles } from '@/app/login/page';
-import { DataContext } from '@/app/forgotpassword/page';
 
 export const NewPassword = () => {
   const router = useRouter();
-  const { userData } = useContext(DataContext);
   const [isHidePassword, setIsHidePassword] = useState(true);
   const [formData, setFormData] = useState({ NewPassword: '', rePassword: '' });
   const togglePasswordVisibility = () => setIsHidePassword((prev) => !prev);
   const Icon = isHidePassword ? EyeOff : EyeIcon;
+
+  const searchParams = useSearchParams();
+
+  const email = searchParams.get('email');
+  const token = searchParams.get('token');
 
   const handleOnChange = (event) => {
     setFormData((prev) => ({
@@ -31,8 +34,9 @@ export const NewPassword = () => {
     if (formData.NewPassword !== formData.rePassword) {
       return console.log('password taarahgu bn');
     } else {
-      const res = await axiosInstance.put(`/user/userUpdate/${userData._id}`, {
-        email: userData.email,
+      const res = await axiosInstance.put(`/otp/newPassword`, {
+        email: email,
+        accessToken: token,
         password: formData.NewPassword,
       });
       if (res.status === 200) {

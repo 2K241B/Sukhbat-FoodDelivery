@@ -53,13 +53,10 @@ export const UserUpdate = async (req, res) => {
   const { name, email, password, phone, role } = req.body;
 
   try {
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(password, salt);
-
     const response = await userModel.findByIdAndUpdate(id, {
       name,
       email,
-      password: hash,
+      password,
       phone,
       role,
     });
