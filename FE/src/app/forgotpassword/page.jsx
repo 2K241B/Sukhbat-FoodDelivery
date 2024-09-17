@@ -8,10 +8,9 @@ export const DataContext = createContext();
 
 const page = () => {
   const [pageCurrent, setPageCurrent] = useState(0);
-  const [userData, setUserData] = useState();
 
   return (
-    <DataContext.Provider value={{ setPageCurrent, setUserData, userData }}>
+    <DataContext.Provider value={{ setPageCurrent }}>
       {pageCurrent === 0 && <ForgotPass />}
       {pageCurrent === 1 && <ForgotPassOTP />}
       {pageCurrent === 2 && <NewPassword />}

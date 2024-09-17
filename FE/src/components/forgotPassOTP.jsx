@@ -5,17 +5,26 @@ import { useContext, useState } from 'react';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from './ui/input-otp';
 import { axiosInstance } from '@/lib/axios';
 import { DataContext } from '@/app/forgotpassword/page';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export const ForgotPassOTP = () => {
-  const { setPageCurrent, userData } = useContext(DataContext);
+  const { setPageCurrent } = useContext(DataContext);
+
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+
+  const email = searchParams.get('email');
+
   const [value, setValue] = useState('');
   const handlerClick = async () => {
     const res = await axiosInstance.post('/otp/check', {
-      email: userData.email,
+      email: email,
       otp: value,
     });
     if (res.status === 200) {
       setPageCurrent(2);
+      router.push(`?email=${email}&token=${res.data.accessToken}`);
     }
   };
   return (
@@ -23,8 +32,8 @@ export const ForgotPassOTP = () => {
       <h2 className={styles.header}>Нууц үг сэргээх</h2>
       <div className="flex flex-col gap-8">
         <p className="text-[#695C08] font-medium leading-[22.4px]">
-          Таны <span className="text-[#18BA51]">{userData.email}</span> хаяг руу
-          сэргээх код илгээх болно.
+          Таны <span className="text-[#18BA51]">{email}</span> хаяг руу сэргээх
+          код илгээх болно.
         </p>
         <div className={`${styles.inputContainer} gap-4`}>
           <h3>Нууц үг сэргээх код</h3>

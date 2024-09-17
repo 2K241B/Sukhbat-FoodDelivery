@@ -6,9 +6,13 @@ import debounce from 'lodash/debounce';
 import { useContext, useMemo, useState } from 'react';
 import { axiosInstance } from '@/lib/axios';
 import { DataContext } from '@/app/forgotpassword/page';
+import { useRouter } from 'next/navigation';
 
 export const ForgotPass = () => {
   const { setPageCurrent, setUserData } = useContext(DataContext);
+
+  const router = useRouter();
+
   const [formData, setFormData] = useState({ email: '' });
   const handleOnChange = (event) => {
     setFormData((prev) => ({
@@ -25,7 +29,7 @@ export const ForgotPass = () => {
     });
     if (res.status === 200) {
       setPageCurrent(1);
-      setUserData(res.data);
+      router.push(`/forgotpassword?email=${res.data.email}`);
     }
   };
   return (
