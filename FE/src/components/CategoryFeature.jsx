@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Card from './Card';
 import ArrowIcon from './icons/ArrowIcon';
 import TermOfServiceIcon from './icons/TermOfServiceIcon';
@@ -12,7 +13,7 @@ const styles = {
   cardContainer: 'flex items-center gap-6',
 };
 
-export const CategoryFeature = ({ categoryName, data }) => {
+export const CategoryFeature = ({ categoryName, data, href }) => {
   return (
     <div className={styles.container}>
       <div className={styles.subContainer}>
@@ -21,7 +22,7 @@ export const CategoryFeature = ({ categoryName, data }) => {
           <h2 className={styles.header}>{categoryName}</h2>
         </div>
         <div className={styles.showAll}>
-          <p>Бүгдийг харах</p>
+          <Link href={`/menu?category=${href}`}>Бүгдийг харах</Link>
           <ArrowIcon />
         </div>
       </div>

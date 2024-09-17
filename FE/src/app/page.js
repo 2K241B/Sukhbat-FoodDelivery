@@ -5,7 +5,6 @@ import HomePageMain from '@/components/HomePageMain';
 import { axiosInstance } from '@/lib/axios';
 import { useEffect, useState } from 'react';
 import groupBy from 'lodash/groupBy';
-import OrderDetailDialog from '@/components/OrderDetailDialog';
 
 export default function Home() {
   const [foods, setFoods] = useState();
@@ -26,7 +25,11 @@ export default function Home() {
       <div className="flex flex-col gap-20 pb-20">
         {foods &&
           Object.keys(foods).map((category) => (
-            <CategoryFeature categoryName={category} data={foods[category]} />
+            <CategoryFeature
+              categoryName={category}
+              href={category}
+              data={foods[category]}
+            />
           ))}
       </div>
     </main>

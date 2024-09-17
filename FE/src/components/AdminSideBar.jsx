@@ -1,9 +1,10 @@
 'use client';
 import DottedIcon from '@/components/icons/DottedIcon';
-import { Button } from './ui/button';
 import CreateCategory from './CreateCategory';
 import { useContext } from 'react';
 import { DataContext } from '@/app/food&category/page';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export const styles = {
   container:
@@ -18,29 +19,29 @@ export const styles = {
   categoryContainer: 'flex flex-col gap-[26px]',
 };
 export const AdminSideBar = () => {
-  const { categories, setSelectedCategory, selectedCategory } =
-    useContext(DataContext);
+  const { categories } = useContext(DataContext);
+
+  const searchParams = useSearchParams();
+
+  const category = searchParams.get('category');
+
   return (
     <div className={styles.container}>
       <h2 className={styles.header}>Food menu</h2>
       <div className={styles.categoryContainer}>
         {categories &&
-          categories.map((category) => (
-            <Button
+          categories.map((el) => (
+            <Link
+              href={`/food&category?category=${el.name}`}
               className={
-                selectedCategory === category.name
-                  ? styles.selectedCategory
-                  : styles.category
+                category === el.name ? styles.selectedCategory : styles.category
               }
-              onClick={() => setSelectedCategory(category.name)}
             >
-              <h4>{category.name}</h4>
+              <h4>{el.name}</h4>
               <DottedIcon
-                color={
-                  selectedCategory === category.name ? '#ffffff' : '#1C1B1F'
-                }
+                color={category === el.name ? '#ffffff' : '#1C1B1F'}
               />
-            </Button>
+            </Link>
           ))}
         <CreateCategory />
       </div>

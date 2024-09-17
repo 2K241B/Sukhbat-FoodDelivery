@@ -1,15 +1,16 @@
 'use client';
 
 import OrderDetailDialog from '@/components/OrderDetailDialog';
-import { Button } from '@/components/ui/button';
 import { axiosInstance } from '@/lib/axios';
 import { useEffect, useState } from 'react';
 import groupBy from 'lodash/groupBy';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 const styles = {
-  button:
-    'max-h-[43px] bg-white text-black border border-[#D6D8DB] rounded-[8px] text-[18px] font-medium leading-[27px] tracking-[-0.396px]',
-  activeButton:
-    'max-h-[43px] bg-[#18BA51] text-white border border-[#D6D8DB] rounded-[8px] text-[18px] font-medium leading-[27px] tracking-[-0.396px]',
+  category:
+    ' w-full h-[43px] border-[#D6D8DB] border bg-white rounded-[8px] flex justify-center py-2 px-4 text-black text-[18px] font-[500]',
+  selectedCategory:
+    ' w-full h-[43px] border-[#D6D8DB] border bg-[#18BA51] rounded-[8px] flex justify-center py-2 px-4 text-black text-[18px] text-white font-[500]',
   contentEmptyConatiner:
     'flex flex-col gap-[30px] items-center justify-center text-[#808080] text-[18px]',
   container: 'w-[1200px] mx-auto flex flex-col gap-[54px]',
@@ -20,13 +21,17 @@ const styles = {
 
 const page = () => {
   const [categories, setCategories] = useState();
-  const [selectedCategory, setSelectedCategory] = useState();
   const [foods, setFoods] = useState();
+
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+
+  const category = searchParams.get('category');
 
   const getCategories = async () => {
     const { data } = await axiosInstance.get('/category/getCategories');
     setCategories(data);
-    setSelectedCategory(data[0].name);
   };
   const getFoods = async () => {
     const { data } = await axiosInstance.get('/food/getFoods');
@@ -42,22 +47,20 @@ const page = () => {
     <div className={styles.container}>
       <div className={styles.categoryContainer}>
         {categories &&
-          categories.map((category) => (
-            <Button
+          categories.map((el) => (
+            <Link
+              href={`/menu?category=${el.name}`}
               className={
-                selectedCategory === category.name
-                  ? styles.activeButton
-                  : styles.button
+                category === el.name ? styles.selectedCategory : styles.category
               }
-              onClick={() => setSelectedCategory(category.name)}
             >
-              {category.name}
-            </Button>
+              {el.name}
+            </Link>
           ))}
       </div>
-      {foods && selectedCategory && foods[selectedCategory] ? (
+      {foods && category && foods[category] ? (
         <div className={styles.foodsContainer}>
-          {foods[selectedCategory].map((food) => (
+          {foods[category].map((food) => (
             <OrderDetailDialog
               name={food.name}
               imageSrc={food.image}
