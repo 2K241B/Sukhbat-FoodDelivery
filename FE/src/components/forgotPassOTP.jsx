@@ -1,15 +1,12 @@
 'use client';
 import { styles } from '@/app/login/page';
 import { Button } from './ui/button';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from './ui/input-otp';
 import { axiosInstance } from '@/lib/axios';
-import { DataContext } from '@/app/forgotpassword/page';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export const ForgotPassOTP = () => {
-  const { setPageCurrent } = useContext(DataContext);
-
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -23,8 +20,7 @@ export const ForgotPassOTP = () => {
       otp: value,
     });
     if (res.status === 200) {
-      setPageCurrent(2);
-      router.push(`?email=${email}&token=${res.data.accessToken}`);
+      router.push(`?page=2&email=${email}&token=${res.data.accessToken}`);
     }
   };
   return (

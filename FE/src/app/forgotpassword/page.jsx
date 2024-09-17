@@ -2,19 +2,26 @@
 import ForgotPass from '@/components/ForgotPass';
 import ForgotPassOTP from '@/components/forgotPassOTP';
 import NewPassword from '@/components/NewPassword';
-import { createContext, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { createContext, useEffect } from 'react';
 
 export const DataContext = createContext();
 
 const page = () => {
-  const [pageCurrent, setPageCurrent] = useState(0);
+  const router = useRouter();
 
+  useEffect(() => {
+    router.push('/forgotpassword?page=0');
+  }, []);
+  const searchParams = useSearchParams();
+
+  const page = searchParams.get('page');
   return (
-    <DataContext.Provider value={{ setPageCurrent }}>
-      {pageCurrent === 0 && <ForgotPass />}
-      {pageCurrent === 1 && <ForgotPassOTP />}
-      {pageCurrent === 2 && <NewPassword />}
-    </DataContext.Provider>
+    <div>
+      {Number(page) === 0 && <ForgotPass />}
+      {Number(page) === 1 && <ForgotPassOTP />}
+      {Number(page) === 2 && <NewPassword />}
+    </div>
   );
 };
 
