@@ -42,7 +42,13 @@ export const Navbar = () => {
           <div className={styles.contentContainer}>
             {Object.values(content).map((menuItems, i) => (
               <p
-                onClick={() => router.push(`/${Object.keys(content)[i]}`)}
+                onClick={() =>
+                  router.push(
+                    Object.keys(content)[i] === 'menu'
+                      ? `/menu?category=Breakfast`
+                      : `/${Object.keys(content)[i]}`
+                  )
+                }
                 className={styles.contentContainer}
               >
                 {menuItems}

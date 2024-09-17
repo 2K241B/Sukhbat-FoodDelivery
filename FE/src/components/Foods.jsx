@@ -1,11 +1,10 @@
 'use client';
 import AdminPlusIcon from '@/components/icons/AdminPlusIcon';
 import OrderDetailDialog from '@/components/OrderDetailDialog';
-import { Button } from '@/components/ui/button';
-import food from '@/components/assets/cardFood.png';
 import CreateFood from './CreateFood';
 import { useContext } from 'react';
 import { DataContext } from '@/app/food&category/page';
+import { useSearchParams } from 'next/navigation';
 
 const styles = {
   container:
@@ -19,17 +18,21 @@ const styles = {
 };
 
 export const Foods = () => {
-  const { foods, selectedCategory } = useContext(DataContext);
+  const { foods } = useContext(DataContext);
+
+  const searchParams = useSearchParams();
+
+  const category = searchParams.get('category');
 
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
-        <h1 className={styles.header}>{selectedCategory}</h1>
+        <h1 className={styles.header}>{category}</h1>
         <CreateFood />
       </div>
-      {selectedCategory && foods && foods[selectedCategory] ? (
+      {foods && foods[category] ? (
         <div className={styles.cardContainer}>
-          {foods[selectedCategory].map((food) => (
+          {foods[category].map((food) => (
             <OrderDetailDialog
               name={food.name}
               imageSrc={food.image}

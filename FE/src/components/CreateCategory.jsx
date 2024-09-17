@@ -1,5 +1,4 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -9,11 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { styles } from './AdminSideBar';
 import { Plus, X } from 'lucide-react';
 import { useRef } from 'react';
 import { axiosInstance } from '@/lib/axios';
+
 export const CreateCategory = () => {
   const formRef = useRef();
 
@@ -27,6 +28,7 @@ export const CreateCategory = () => {
     });
     location.reload();
   };
+
   const clearClick = () => {
     formRef.current[1].value = '';
     formRef.current[1].focus();

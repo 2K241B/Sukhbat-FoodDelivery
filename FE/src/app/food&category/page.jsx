@@ -3,19 +3,21 @@ import AdminSideBar from '@/components/AdminSideBar';
 import Foods from '@/components/Foods';
 import { axiosInstance } from '@/lib/axios';
 import groupBy from 'lodash/groupBy';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState, createContext } from 'react';
 
 export const DataContext = createContext();
 
 const page = () => {
   const [categories, setCategories] = useState();
-  const [selectedCategory, setSelectedCategory] = useState();
   const [foods, setFoods] = useState();
+
+  const router = useRouter();
 
   const getCategories = async () => {
     const { data } = await axiosInstance.get('/category/getCategories');
     setCategories(data);
-    setSelectedCategory(data[0].name);
+    router.push(`/food&category?category=${data[0].name}`);
   };
 
   const getFoods = async () => {
@@ -30,9 +32,7 @@ const page = () => {
   }, []);
 
   return (
-    <DataContext.Provider
-      value={{ categories, foods, setSelectedCategory, selectedCategory }}
-    >
+    <DataContext.Provider value={{ categories, foods }}>
       <div className="flex flex-row ">
         <AdminSideBar />
         <Foods />
