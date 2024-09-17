@@ -3,14 +3,11 @@ import { styles } from '@/app/login/page';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import debounce from 'lodash/debounce';
-import { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { axiosInstance } from '@/lib/axios';
-import { DataContext } from '@/app/forgotpassword/page';
 import { useRouter } from 'next/navigation';
 
 export const ForgotPass = () => {
-  const { setPageCurrent, setUserData } = useContext(DataContext);
-
   const router = useRouter();
 
   const [formData, setFormData] = useState({ email: '' });
@@ -28,8 +25,7 @@ export const ForgotPass = () => {
       email: formData.email,
     });
     if (res.status === 200) {
-      setPageCurrent(1);
-      router.push(`/forgotpassword?email=${res.data.email}`);
+      router.push(`/forgotpassword?page=1&email=${res.data.email}`);
     }
   };
   return (

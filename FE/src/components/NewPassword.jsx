@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { EyeIcon, EyeOff } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { axiosInstance } from '@/lib/axios';
 import { styles } from '@/app/login/page';
