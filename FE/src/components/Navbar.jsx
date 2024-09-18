@@ -45,7 +45,7 @@ export const Navbar = () => {
                 onClick={() =>
                   router.push(
                     Object.keys(content)[i] === 'menu'
-                      ? `/menu?category=Breakfast`
+                      ? `/menu?category=0`
                       : `/${Object.keys(content)[i]}`
                   )
                 }

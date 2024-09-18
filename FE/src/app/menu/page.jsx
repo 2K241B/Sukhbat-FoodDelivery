@@ -3,8 +3,7 @@
 import OrderDetailDialog from '@/components/OrderDetailDialog';
 import { axiosInstance } from '@/lib/axios';
 import { useEffect, useState } from 'react';
-import groupBy from 'lodash/groupBy';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 const styles = {
   category:
@@ -20,56 +19,54 @@ const styles = {
 };
 
 const page = () => {
-  const [categories, setCategories] = useState();
-  const [foods, setFoods] = useState();
-
-  const router = useRouter();
+  const [foodAndCategories, setFoodAndCategories] = useState();
 
   const searchParams = useSearchParams();
 
   const category = searchParams.get('category');
 
-  const getCategories = async () => {
-    const { data } = await axiosInstance.get('/category/getCategories');
-    setCategories(data);
-  };
-  const getFoods = async () => {
-    const { data } = await axiosInstance.get('/food/getFoods');
-    const groupData = groupBy(data, 'categoryId.name');
-    setFoods(groupData);
+  const getCategoriesAndFoods = async () => {
+    const { data } = await axiosInstance.get('/category/foods');
+    setFoodAndCategories(data);
   };
 
   useEffect(() => {
-    getCategories();
-    getFoods();
+    getCategoriesAndFoods();
   }, []);
   return (
     <div className={styles.container}>
       <div className={styles.categoryContainer}>
-        {categories &&
-          categories.map((el) => (
+        {foodAndCategories &&
+          foodAndCategories.map((el, i) => (
             <Link
-              href={`/menu?category=${el.name}`}
+              href={`/menu?category=${i}`}
               className={
-                category === el.name ? styles.selectedCategory : styles.category
+                Number(category) === i
+                  ? styles.selectedCategory
+                  : styles.category
               }
             >
               {el.name}
             </Link>
           ))}
       </div>
-      {foods && category && foods[category] ? (
+      {foodAndCategories &&
+      category &&
+      foodAndCategories[category].foods.length !== 0 ? (
         <div className={styles.foodsContainer}>
-          {foods[category].map((food) => (
-            <OrderDetailDialog
-              name={food.name}
-              imageSrc={food.image}
-              price={food.price}
-              discount={food.discount <= 0 ? null : food.discount}
-              recipe={food.ingeredient}
-              alt={food.name}
-            />
-          ))}
+          {foodAndCategories &&
+            category &&
+            foodAndCategories[category] &&
+            foodAndCategories[category].foods.map((food) => (
+              <OrderDetailDialog
+                name={food.name}
+                imageSrc={food.image}
+                price={food.price}
+                discount={food.discount <= 0 ? null : food.discount}
+                recipe={food.ingeredient}
+                alt={food.name}
+              />
+            ))}
         </div>
       ) : (
         <div className={styles.contentEmptyConatiner}>
