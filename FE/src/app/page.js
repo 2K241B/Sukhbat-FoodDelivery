@@ -24,11 +24,11 @@ export default function Home() {
       <Feature />
       <div className="flex flex-col gap-20 pb-20">
         {foods &&
-          Object.keys(foods).map((category) => (
+          Object.keys(foods).map((category, i) => (
             <CategoryFeature
               categoryName={category}
-              href={category}
               data={foods[category]}
+              href={i}
             />
           ))}
       </div>

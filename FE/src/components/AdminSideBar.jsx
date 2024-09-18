@@ -19,7 +19,7 @@ export const styles = {
   categoryContainer: 'flex flex-col gap-[26px]',
 };
 export const AdminSideBar = () => {
-  const { categories } = useContext(DataContext);
+  const { foodAndCategories } = useContext(DataContext);
 
   const searchParams = useSearchParams();
 
@@ -29,17 +29,19 @@ export const AdminSideBar = () => {
     <div className={styles.container}>
       <h2 className={styles.header}>Food menu</h2>
       <div className={styles.categoryContainer}>
-        {categories &&
-          categories.map((el) => (
+        {foodAndCategories &&
+          foodAndCategories.map((el, i) => (
             <Link
-              href={`/food&category?category=${el.name}`}
+              href={`/food&category?category=${i}`}
               className={
-                category === el.name ? styles.selectedCategory : styles.category
+                Number(category) === i
+                  ? styles.selectedCategory
+                  : styles.category
               }
             >
               <h4>{el.name}</h4>
               <DottedIcon
-                color={category === el.name ? '#ffffff' : '#1C1B1F'}
+                color={Number(category) === i ? '#ffffff' : '#1C1B1F'}
               />
             </Link>
           ))}

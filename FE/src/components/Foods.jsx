@@ -18,7 +18,7 @@ const styles = {
 };
 
 export const Foods = () => {
-  const { foods } = useContext(DataContext);
+  const { foodAndCategories } = useContext(DataContext);
 
   const searchParams = useSearchParams();
 
@@ -27,12 +27,16 @@ export const Foods = () => {
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
-        <h1 className={styles.header}>{category}</h1>
+        <h1 className={styles.header}>
+          {foodAndCategories && category && foodAndCategories[category].name}
+        </h1>
         <CreateFood />
       </div>
-      {foods && foods[category] ? (
+      {foodAndCategories &&
+      category &&
+      foodAndCategories[category].foods.length !== 0 ? (
         <div className={styles.cardContainer}>
-          {foods[category].map((food) => (
+          {foodAndCategories[category].foods.map((food) => (
             <OrderDetailDialog
               name={food.name}
               imageSrc={food.image}
