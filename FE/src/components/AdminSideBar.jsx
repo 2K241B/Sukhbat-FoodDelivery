@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { DataContext } from '@/app/food&category/page';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import CategoryEditAndDeleteDropdown from './CategoryEditAndDeleteDropdown';
 
 export const styles = {
   container:
@@ -19,7 +20,8 @@ export const styles = {
   categoryContainer: 'flex flex-col gap-[26px]',
 };
 export const AdminSideBar = () => {
-  const { foodAndCategories } = useContext(DataContext);
+  const { foodAndCategories, handlerEditClick, handlerDeleteClick } =
+    useContext(DataContext);
 
   const searchParams = useSearchParams();
 
@@ -40,8 +42,11 @@ export const AdminSideBar = () => {
               }
             >
               <h4>{el.name}</h4>
-              <DottedIcon
-                color={Number(category) === i ? '#ffffff' : '#1C1B1F'}
+              <CategoryEditAndDeleteDropdown
+                foodAndCategories={foodAndCategories}
+                handlerEditClick={handlerEditClick}
+                handlerDeleteClick={handlerDeleteClick}
+                i={i}
               />
             </Link>
           ))}

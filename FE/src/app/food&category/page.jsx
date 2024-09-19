@@ -22,8 +22,18 @@ const page = () => {
     getCategoriesAndFoods();
   }, []);
 
+  const handlerEditClick = () => {
+    console.log('KK');
+  };
+  const handlerDeleteClick = async (categoryId) => {
+    await axiosInstance.delete(`/category/categoryDelete/${categoryId}`);
+    router.push(`/food&category?category=${0}`);
+  };
+
   return (
-    <DataContext.Provider value={{ foodAndCategories }}>
+    <DataContext.Provider
+      value={{ foodAndCategories, handlerEditClick, handlerDeleteClick }}
+    >
       <div className="flex flex-row ">
         <AdminSideBar />
         <Foods />
