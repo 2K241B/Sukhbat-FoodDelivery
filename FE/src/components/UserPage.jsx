@@ -2,7 +2,6 @@
 import {
   EditIcon,
   HistoryIcon,
-  LogoutIcon,
   MailIcon,
   PhoneIcon,
   UserPageUserIcon,
@@ -11,6 +10,8 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useCookies } from 'next-client-cookies';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import ProfileLogout from './ProfileLogout';
 
 const styles = {
   container: 'flex flex-col gap-6 w-[432px] mx-auto pt-[76px]',
@@ -32,13 +33,17 @@ export const UserPage = () => {
 
   const encodedToken = cookies.get('token');
 
-  const decoded = jwtDecode(encodedToken);
+  const decoded = encodedToken && jwtDecode(encodedToken);
 
-  const user = decoded._doc;
+  const user = decoded && decoded._doc;
+
+  useEffect(() => {
+    encodedToken === undefined && router.push('/');
+    router.refresh();
+  }, [encodedToken]);
 
   const handlerLogOut = () => {
-    router.push('/');
-    // cookies.remove('token');
+    cookies.remove('token');
   };
 
   return (
@@ -53,14 +58,14 @@ export const UserPage = () => {
             <EditIcon />
           </div>
         </div>
-        <h2 className="text-[28px] font-bold">{user.name}</h2>
+        <h2 className="text-[28px] font-bold">{user && user.name}</h2>
       </div>
       <form className={styles.formContainer}>
         <div className={styles.formSubContainer}>
           <UserPageUserIcon />
           <div className={styles.textContainer}>
             <p className={styles.formContentHeader}>Таны нэр</p>
-            <h4>{user.name}</h4>
+            <h4>{user && user.name}</h4>
           </div>
           <EditIcon />
         </div>
@@ -68,7 +73,7 @@ export const UserPage = () => {
           <PhoneIcon />
           <div className={styles.textContainer}>
             <p className={styles.formContentHeader}>Утасны дугаар</p>
-            <h4>{user.phone}</h4>
+            <h4>{user && user.phone}</h4>
           </div>
           <EditIcon />
         </div>
@@ -76,19 +81,15 @@ export const UserPage = () => {
           <MailIcon />
           <div className={styles.textContainer}>
             <p className={styles.formContentHeader}>Имэйл хаяг</p>
-            <h4>{user.email}</h4>
+            <h4>{user && user.email}</h4>
           </div>
           <EditIcon />
         </div>
-
         <div className={styles.buttons}>
           <HistoryIcon />
           <h4>Захиалгын түүх</h4>
         </div>
-        <div onClick={handlerLogOut} className={styles.buttons}>
-          <LogoutIcon />
-          <h4>Гарах</h4>
-        </div>
+        <ProfileLogout handlerLogOut={handlerLogOut} />
       </form>
     </div>
   );
