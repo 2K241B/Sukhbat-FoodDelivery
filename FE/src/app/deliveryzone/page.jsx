@@ -1,5 +1,9 @@
-import Image from 'next/image';
-import DeliveryZone from '@/components/assets/deliveryZone.png';
+'use client';
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('@/components/Map'), {
+  ssr: false,
+});
 import TermOfServiceIcon from '@/components/icons/TermOfServiceIcon';
 
 const content = [
@@ -23,7 +27,9 @@ const styles = {
 const page = () => {
   return (
     <div className={styles.container}>
-      <Image src={DeliveryZone} height={616} width={1300} />
+      <div className="h-[616px] w-[1200px]">
+        <Map />
+      </div>
       <div>
         <div className={styles.header}>
           <TermOfServiceIcon />
