@@ -20,8 +20,7 @@ export const styles = {
   categoryContainer: 'flex flex-col gap-[26px]',
 };
 export const AdminSideBar = () => {
-  const { foodAndCategories, handlerEditClick, handlerDeleteClick } =
-    useContext(DataContext);
+  const { foodAndCategories, handlerDeleteClick } = useContext(DataContext);
 
   const searchParams = useSearchParams();
 
@@ -44,7 +43,6 @@ export const AdminSideBar = () => {
               <h4>{el.name}</h4>
               <CategoryEditAndDeleteDropdown
                 foodAndCategories={foodAndCategories}
-                handlerEditClick={handlerEditClick}
                 handlerDeleteClick={handlerDeleteClick}
                 i={i}
               />

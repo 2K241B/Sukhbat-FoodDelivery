@@ -11,11 +11,11 @@ import { useSearchParams } from 'next/navigation';
 import DottedIcon from './icons/DottedIcon';
 import { EditIcon } from './icons';
 import { Trash2 } from 'lucide-react';
+import EditCategory from './Editcategory';
 
 export const CategoryEditAndDeleteDropdown = ({
   foodAndCategories,
   i,
-  handlerEditClick,
   handlerDeleteClick,
 }) => {
   const searchParams = useSearchParams();
@@ -27,13 +27,9 @@ export const CategoryEditAndDeleteDropdown = ({
         <DottedIcon color={Number(category) === i ? '#ffffff' : '#1C1B1F'} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem
-          onClick={handlerEditClick}
-          className="gap-4 py-2 px-4 text-[#161616] font-medium"
-        >
-          <EditIcon color="#525252" />
-          <span>Edit name</span>
-        </DropdownMenuItem>
+        <div>
+          <EditCategory foodAndCategories={foodAndCategories} i={i} />
+        </div>
         <DropdownMenuItem
           onClick={() => handlerDeleteClick(foodAndCategories[i]._id)}
           className="gap-4 py-2 px-4 text-[#161616] font-medium"
