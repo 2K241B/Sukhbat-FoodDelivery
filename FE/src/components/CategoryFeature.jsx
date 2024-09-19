@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Card from './Card';
 import ArrowIcon from './icons/ArrowIcon';
 import TermOfServiceIcon from './icons/TermOfServiceIcon';
 import OrderDetailDialog from './OrderDetailDialog';
@@ -32,6 +31,7 @@ export const CategoryFeature = ({ categoryName, data, href }) => {
             .slice(0, 4)
             .map((data) => (
               <OrderDetailDialog
+                params={data._id}
                 name={data.name}
                 imageSrc={data.image}
                 price={data.price}

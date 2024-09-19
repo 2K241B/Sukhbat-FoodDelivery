@@ -20,7 +20,7 @@ export const styles = {
   categoryContainer: 'flex flex-col gap-[26px]',
 };
 export const AdminSideBar = () => {
-  const { foodAndCategories, handlerDeleteClick } = useContext(DataContext);
+  const { response, handlerDeleteClick } = useContext(DataContext);
 
   const searchParams = useSearchParams();
 
@@ -30,8 +30,8 @@ export const AdminSideBar = () => {
     <div className={styles.container}>
       <h2 className={styles.header}>Food menu</h2>
       <div className={styles.categoryContainer}>
-        {foodAndCategories &&
-          foodAndCategories.map((el, i) => (
+        {response &&
+          response.map((el, i) => (
             <Link
               href={`/food&category?category=${i}`}
               className={
@@ -42,7 +42,7 @@ export const AdminSideBar = () => {
             >
               <h4>{el.name}</h4>
               <CategoryEditAndDeleteDropdown
-                foodAndCategories={foodAndCategories}
+                response={response}
                 handlerDeleteClick={handlerDeleteClick}
                 i={i}
               />

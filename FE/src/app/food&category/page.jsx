@@ -1,25 +1,21 @@
 'use client';
 import AdminSideBar from '@/components/AdminSideBar';
 import Foods from '@/components/Foods';
+import Loading from '@/components/Loading';
+import { useFoodsAndCategories } from '@/hooks/useFoodsAndCategories';
 import { axiosInstance } from '@/lib/axios';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, createContext } from 'react';
+import { useEffect, createContext } from 'react';
 
 export const DataContext = createContext();
 
 const page = () => {
-  const [foodAndCategories, setFoodAndCategories] = useState();
-
   const router = useRouter();
 
-  const getCategoriesAndFoods = async () => {
-    const { data } = await axiosInstance.get('/category/foods');
-    setFoodAndCategories(data);
-    router.push(`/food&category?category=${0}`);
-  };
+  const { response, loading, error } = useFoodsAndCategories();
 
   useEffect(() => {
-    getCategoriesAndFoods();
+    router.push(`/food&category?category=${0}`);
   }, []);
 
   const handlerDeleteClick = async (categoryId) => {
@@ -28,11 +24,15 @@ const page = () => {
   };
 
   return (
-    <DataContext.Provider value={{ foodAndCategories, handlerDeleteClick }}>
-      <div className="flex flex-row ">
-        <AdminSideBar />
-        <Foods />
-      </div>
+    <DataContext.Provider value={{ response, handlerDeleteClick }}>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="flex flex-row ">
+          <AdminSideBar />
+          <Foods />
+        </div>
+      )}
     </DataContext.Provider>
   );
 };

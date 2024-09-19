@@ -1,4 +1,6 @@
+'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const styles = {
   container: 'flex flex-col gap-[14px] items-start',
@@ -10,7 +12,8 @@ const styles = {
   salePrice: 'text-lg line-through',
 };
 
-export const Card = ({ imageSrc, title, price, discount, alt }) => {
+export const Card = ({ imageSrc, title, price, discount, alt, params }) => {
+  const router = useRouter();
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
