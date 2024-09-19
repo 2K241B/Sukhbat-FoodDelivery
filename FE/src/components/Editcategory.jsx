@@ -15,18 +15,15 @@ import { useRef } from 'react';
 import { axiosInstance } from '@/lib/axios';
 import { EditIcon } from './icons';
 
-export const EditCategory = ({ foodAndCategories, i }) => {
+export const EditCategory = ({ response, i }) => {
   const formRef = useRef();
 
   const handleSubmit = async () => {
     const formData = new FormData(formRef.current);
     const { categoryName } = Object.fromEntries(formData);
-    await axiosInstance.put(
-      `/category/categoryUpdate/${foodAndCategories[i]._id}`,
-      {
-        name: categoryName,
-      }
-    );
+    await axiosInstance.put(`/category/categoryUpdate/${response[i]._id}`, {
+      name: categoryName,
+    });
     location.reload();
   };
 

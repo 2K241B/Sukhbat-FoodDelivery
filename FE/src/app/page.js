@@ -2,36 +2,33 @@
 import CategoryFeature from '@/components/CategoryFeature';
 import Feature from '@/components/Feature';
 import HomePageMain from '@/components/HomePageMain';
-import { axiosInstance } from '@/lib/axios';
-import { useEffect, useState } from 'react';
-import groupBy from 'lodash/groupBy';
+import Loading from '@/components/Loading';
+import { useFoodsAndCategories } from '@/hooks/useFoodsAndCategories';
 
 export default function Home() {
-  const [foods, setFoods] = useState();
-
-  const getFoods = async () => {
-    const { data } = await axiosInstance.get('/food/getFoods');
-    const groupData = groupBy(data, 'categoryId.name');
-    setFoods(groupData);
-  };
-  useEffect(() => {
-    getFoods();
-  }, []);
+  const { response, loading, error } = useFoodsAndCategories();
 
   return (
     <main>
       <HomePageMain />
       <Feature />
-      <div className="flex flex-col gap-20 pb-20">
-        {foods &&
-          Object.keys(foods).map((category, i) => (
-            <CategoryFeature
-              categoryName={category}
-              data={foods[category]}
-              href={i}
-            />
-          ))}
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="flex flex-col gap-20 pb-20">
+          {response &&
+            response.map(
+              (el, i) =>
+                el.foods.length !== 0 && (
+                  <CategoryFeature
+                    categoryName={el.name}
+                    data={el.foods}
+                    href={i}
+                  />
+                )
+            )}
+        </div>
+      )}
     </main>
   );
 }

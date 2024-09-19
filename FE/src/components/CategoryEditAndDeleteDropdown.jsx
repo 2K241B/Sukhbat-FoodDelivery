@@ -14,7 +14,7 @@ import { Trash2 } from 'lucide-react';
 import EditCategory from './Editcategory';
 
 export const CategoryEditAndDeleteDropdown = ({
-  foodAndCategories,
+  response,
   i,
   handlerDeleteClick,
 }) => {
@@ -28,10 +28,10 @@ export const CategoryEditAndDeleteDropdown = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <div>
-          <EditCategory foodAndCategories={foodAndCategories} i={i} />
+          <EditCategory response={response} i={i} />
         </div>
         <DropdownMenuItem
-          onClick={() => handlerDeleteClick(foodAndCategories[i]._id)}
+          onClick={() => handlerDeleteClick(response[i]._id)}
           className="gap-4 py-2 px-4 text-[#161616] font-medium"
         >
           <Trash2 size={24} color="#F5222D" />

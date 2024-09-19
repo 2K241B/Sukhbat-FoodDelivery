@@ -1,10 +1,11 @@
 'use client';
 
 import OrderDetailDialog from '@/components/OrderDetailDialog';
-import { axiosInstance } from '@/lib/axios';
-import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useFoodsAndCategories } from '@/hooks/useFoodsAndCategories';
+import Loading from '@/components/Loading';
+
 const styles = {
   category:
     ' w-full h-[43px] border-[#D6D8DB] border bg-white rounded-[8px] flex justify-center py-2 px-4 text-black text-[18px] font-[500]',
@@ -19,25 +20,17 @@ const styles = {
 };
 
 const page = () => {
-  const [foodAndCategories, setFoodAndCategories] = useState();
+  const { response, loading, error } = useFoodsAndCategories();
 
   const searchParams = useSearchParams();
 
   const category = searchParams.get('category');
 
-  const getCategoriesAndFoods = async () => {
-    const { data } = await axiosInstance.get('/category/foods');
-    setFoodAndCategories(data);
-  };
-
-  useEffect(() => {
-    getCategoriesAndFoods();
-  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.categoryContainer}>
-        {foodAndCategories &&
-          foodAndCategories.map((el, i) => (
+        {response &&
+          response.map((el, i) => (
             <Link
               href={`/menu?category=${i}`}
               className={
@@ -50,14 +43,14 @@ const page = () => {
             </Link>
           ))}
       </div>
-      {foodAndCategories &&
-      category &&
-      foodAndCategories[category].foods.length !== 0 ? (
+      {loading ? (
+        <Loading />
+      ) : response && category && response[category].foods.length !== 0 ? (
         <div className={styles.foodsContainer}>
-          {foodAndCategories &&
+          {response &&
             category &&
-            foodAndCategories[category] &&
-            foodAndCategories[category].foods.map((food) => (
+            response[category] &&
+            response[category].foods.map((food) => (
               <OrderDetailDialog
                 name={food.name}
                 imageSrc={food.image}

@@ -49,6 +49,7 @@ export const OrderDetailDialog = ({
   imageSrc,
   discount,
   alt,
+  params,
 }) => {
   const [current, setCurrent] = useState(1);
   useEffect(() => {
@@ -58,6 +59,7 @@ export const OrderDetailDialog = ({
     <Dialog>
       <DialogTrigger>
         <Card
+          params={params}
           title={name}
           price={price}
           discount={discount}
