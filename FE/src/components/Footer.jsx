@@ -1,3 +1,5 @@
+'use client';
+import Link from 'next/link';
 import {
   FacebookIcon,
   FooterBackground,
@@ -6,25 +8,27 @@ import {
   TwitterIcon,
 } from './icons';
 
-const content = [
-  'Нүүр',
-  'Холбоо барих',
-  'Хоолны цэс',
-  'Үйлчилгээний нөхцөл',
-  'Хүргэлтийн бүс',
-  'Нууцлалын бодлого',
-];
+const content = {
+  '': 'Нүүр',
+  contact: 'Холбоо барих',
+  'menu?category=0': 'Хоолны цэс',
+  termofservice: 'Үйлчилгээний нөхцөл',
+  deliveryzone: 'Хүргэлтийн бүс',
+  privacypolicy: 'Нууцлалын бодлого',
+};
 
 const footerIcons = {
-  facebook: <FacebookIcon />,
-  instagram: <InstagramIcon />,
-  twitter: <TwitterIcon />,
+  'https://www.instagram.com/pineconemongolia/': <FacebookIcon />,
+  'https://www.facebook.com/pinecone.academy.mongolia/': <InstagramIcon />,
+  'https://x.com/i/flow/login?redirect_after_login=%2Fpineconeacademy': (
+    <TwitterIcon />
+  ),
 };
 
 const styles = {
   container:
     'bg-[#18BA51] min-w-[1440px] min-h-[545px] text-white flex items-center justify-center relative overflow-hidden',
-  contentContainer: 'flex flex-col items-center gap-10',
+  contentContainer: 'flex flex-col items-center gap-10 z-10',
   header: 'flex gap-2 text-[20px] font-bold ',
   text: 'flex justify-between w-full underline underline-offset-4 font-[590]',
   iconsContainer: 'flex gap-[18px] items-center p-[5px]',
@@ -42,12 +46,16 @@ export const Footer = () => {
           <p>Food Delivery</p>
         </div>
         <div className={styles.text}>
-          {content.map((FooterItems) => (
-            <p>{FooterItems}</p>
+          {Object.keys(content).map((FooterItems) => (
+            <Link href={`/${FooterItems}`}>{content[FooterItems]}</Link>
           ))}
         </div>
         <div className={styles.iconsContainer}>
-          {Object.keys(footerIcons).map((icons) => footerIcons[icons])}
+          {Object.keys(footerIcons).map((icons) => (
+            <a target="_blank" href={icons}>
+              {footerIcons[icons]}
+            </a>
+          ))}
         </div>
         <div className={styles.line}></div>
         <div className={styles.bottomText}>

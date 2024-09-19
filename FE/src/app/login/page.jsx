@@ -47,7 +47,10 @@ export const page = () => {
         email: formData.email,
         password: formData.password,
       });
-      if (response.status === 200) router.push('/');
+      if (response.status === 200) {
+        router.push('/');
+        router.refresh();
+      }
     } catch (error) {
       console.error(error);
     }
