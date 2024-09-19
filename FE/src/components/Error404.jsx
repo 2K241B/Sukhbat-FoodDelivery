@@ -1,6 +1,6 @@
 import ErrorIcon from '@/components/icons/ErrorIcon';
 
-const page = () => {
+const Error404 = () => {
   return (
     <div className="flex items-center justify-start flex-col h-screen pt-[203px]">
       <ErrorIcon />
@@ -11,4 +11,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Error404;
