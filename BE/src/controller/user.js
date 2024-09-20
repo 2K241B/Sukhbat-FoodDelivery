@@ -60,7 +60,10 @@ export const UserUpdate = async (req, res) => {
       phone,
       role,
     });
-    return res.status(200).json(response);
+    const privateKey = process.env.JWT_PRIVATE_KEY;
+    const token = jwt.sign({ ...response }, privateKey);
+
+    return res.status(200).cookie('token', token).end();
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);
