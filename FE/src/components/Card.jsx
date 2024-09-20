@@ -19,10 +19,11 @@ export const Card = ({ imageSrc, title, price, discount, alt, params }) => {
     <div className={styles.container}>
       <div className={styles.imgContainer}>
         <CldImage
-          src="ow30vsg7aimgo89may5n"
+          src={imageSrc}
           className=" rounded-2xl relative"
           width="282"
           height="186"
+          alt={alt}
           crop={{
             type: 'auto',
             source: true,
