@@ -70,9 +70,10 @@ export const OrderDetailDialog = ({
       </DialogTrigger>
       <DialogContent className={styles.dialogContent}>
         <CldImage
-          src="ow30vsg7aimgo89may5n"
+          src={imageSrc}
           width="500"
           height="500"
+          alt={alt}
           crop={{
             type: 'auto',
             source: true,
