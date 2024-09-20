@@ -7,18 +7,28 @@ export const useFoodsAndCategories = () => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
 
+  const fetch = async () => {
+    try {
+      const { data } = await axiosInstance.get('/category/foods');
+      setResponse(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        const { data } = await axiosInstance.get('/category/foods');
-        setResponse(data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
     fetch();
   }, []);
-  return { response, loading, error };
+
+  const refetch = async (id) => {
+    setLoading(true);
+    const newData = response.filter((res) => res._id != id);
+    console.log(newData);
+    setResponse(newData);
+    setLoading(false);
+    // await fetch();
+  };
+  return { response, loading, error, refetch };
 };

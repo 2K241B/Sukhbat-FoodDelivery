@@ -23,7 +23,7 @@ export const CategoryEditAndDeleteDropdown = ({
   const category = searchParams.get('category');
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="outline-none">
         <DottedIcon color={Number(category) === i ? '#ffffff' : '#1C1B1F'} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>

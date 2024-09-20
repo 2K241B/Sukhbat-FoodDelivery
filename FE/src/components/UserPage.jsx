@@ -10,8 +10,9 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useCookies } from 'next-client-cookies';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import ProfileLogout from './ProfileLogout';
+import debounce from 'lodash/debounce';
 
 const styles = {
   container: 'flex flex-col gap-6 w-[432px] mx-auto pt-[76px]',
@@ -28,6 +29,8 @@ const styles = {
 };
 
 export const UserPage = () => {
+  const [isEdit, setIsEdit] = useState(false);
+
   const router = useRouter();
   const cookies = useCookies();
 
@@ -46,44 +49,67 @@ export const UserPage = () => {
     cookies.remove('token');
   };
 
+  const formRef = useRef();
+
+  const handlerEditClick = () => {
+    setIsEdit(true);
+    console.log('edit');
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.avatarContainer}>
         <div className="size-[120px] relative">
           <Avatar className="size-[120px]">
-            <AvatarImage src="https://github.com/shadcn.png" alt="avatar" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src="" alt="avatar" />
+            <AvatarFallback className="text-[40px] capitalize text-[#8B8E95]">
+              {user.name.slice(0, 1)}
+            </AvatarFallback>
           </Avatar>
           <div className={styles.editIconBg}>
             <EditIcon />
           </div>
         </div>
-        <h2 className="text-[28px] font-bold">{user && user.name}</h2>
+        <h2 className="text-[28px] font-bold capitalize">
+          {user && user.name}
+        </h2>
       </div>
-      <form className={styles.formContainer}>
+      <form ref={formRef} className={styles.formContainer}>
         <div className={styles.formSubContainer}>
           <UserPageUserIcon />
           <div className={styles.textContainer}>
             <p className={styles.formContentHeader}>Таны нэр</p>
-            <h4>{user && user.name}</h4>
+            <h4 contentEditable={isEdit} className="outline-none capitalize">
+              {user && user.name}
+            </h4>
           </div>
-          <EditIcon />
+          <div onClick={handlerEditClick}>
+            <EditIcon />
+          </div>
         </div>
         <div className={styles.formSubContainer}>
           <PhoneIcon />
           <div className={styles.textContainer}>
             <p className={styles.formContentHeader}>Утасны дугаар</p>
-            <h4>{user && user.phone}</h4>
+            <h4 contentEditable={isEdit} className="outline-none">
+              {user && user.phone}
+            </h4>
           </div>
-          <EditIcon />
+          <div onClick={handlerEditClick}>
+            <EditIcon />
+          </div>
         </div>
         <div className={styles.formSubContainer}>
           <MailIcon />
           <div className={styles.textContainer}>
             <p className={styles.formContentHeader}>Имэйл хаяг</p>
-            <h4>{user && user.email}</h4>
+            <h4 contentEditable={isEdit} className="outline-none">
+              {user && user.email}
+            </h4>
           </div>
-          <EditIcon />
+          <div onClick={handlerEditClick}>
+            <EditIcon />
+          </div>
         </div>
         <div className={styles.buttons}>
           <HistoryIcon />

@@ -51,7 +51,7 @@ export const EditCategory = ({ response, i }) => {
             <Input
               name="categoryName"
               className="bg-[#F4F4F4] h-[56px] px-3 text-[#8B8E95]"
-              placeholder={foodAndCategories[i].name}
+              placeholder={response[i].name}
             />
           </div>
           <DialogFooter className="p-6 border-t gap-4">

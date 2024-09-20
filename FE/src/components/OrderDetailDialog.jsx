@@ -17,6 +17,7 @@ import MinusIcon from './icons/MinusIcon';
 import { useEffect, useState } from 'react';
 import Card from './Card';
 import { X } from 'lucide-react';
+import { CldImage } from 'next-cloudinary';
 const style = {
   container: 'flex flex-col gap-[14px] items-start',
   imgContainer: 'relative w-[282px] min-h-[186px] rounded-2xl',
@@ -68,9 +69,15 @@ export const OrderDetailDialog = ({
         />
       </DialogTrigger>
       <DialogContent className={styles.dialogContent}>
-        <div className="relative w-[500px] h-[500px]">
-          <Image src={imageSrc} fill style={{ objectFit: 'cover' }} alt={alt} />
-        </div>
+        <CldImage
+          src="ow30vsg7aimgo89may5n"
+          width="500"
+          height="500"
+          crop={{
+            type: 'auto',
+            source: true,
+          }}
+        />
         <DialogClose className="absolute right-6 top-6">
           <X />
         </DialogClose>
