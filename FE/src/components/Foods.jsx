@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 
 const styles = {
   container:
-    'bg-[#F7F7F8] w-full pl-8 py-6 pr-[112px] flex flex-col gap-8 pb-20',
+    'bg-[#fafafa] w-full pl-8 py-6 pr-[112px] flex flex-col gap-8 pb-20',
   headerContainer: 'flex justify-between py-4',
   header: 'text-[22px] text-[#272727] font-bold',
   button: 'w-[130px] h-[35px] bg-[#18BA51]',
@@ -28,13 +28,13 @@ export const Foods = () => {
     <div className={styles.container}>
       <div className={styles.headerContainer}>
         <h1 className={styles.header}>
-          {response && category && response[category].name}
+          {response && category && response[category]?.name}
         </h1>
         <CreateFood />
       </div>
-      {response && category && response[category].foods.length !== 0 ? (
+      {response && category && response[category]?.foods.length !== 0 ? (
         <div className={styles.cardContainer}>
-          {response[category].foods.map((food) => (
+          {response[category]?.foods.map((food) => (
             <OrderDetailDialog
               name={food.name}
               imageSrc={food.image}

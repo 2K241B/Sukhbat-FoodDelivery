@@ -15,6 +15,7 @@ import { Label } from './ui/label';
 import { X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
+import { CldUploadButton } from 'next-cloudinary';
 
 export const CreateFood = () => {
   const [formData, setFormData] = useState({
@@ -43,7 +44,7 @@ export const CreateFood = () => {
       <DialogTrigger className="w-[130px] h-[35px] bg-[#18BA51] text-white rounded-[4px]">
         Add new food
       </DialogTrigger>
-      <DialogContent className="max-w-[587px] p-0">
+      <DialogContent className="max-w-[587px] p-0 z-50">
         <form>
           <DialogHeader className="border-b py-4 px-6">
             <div className="flex justify-between items-center">
@@ -117,8 +118,14 @@ export const CreateFood = () => {
               </h3>
               <div className="bg-[#F4F4F4] p-2 text-[#525252] font-bold leading-6 w-[284px] h-[122px] flex flex-col items-center justify-center rounded-[8px] outline-[#D6D7DC] gap-2 outline-dashed">
                 <h3>Add image for the food</h3>
-                <Button className="bg-[#3F4145] text-white h-10 w-[109px] rounded-[8px]">
-                  Add image
+                <Button
+                  type="button"
+                  className="bg-[#3F4145] text-white h-10 w-[109px] rounded-[8px]"
+                >
+                  <CldUploadButton
+                    className="z-50"
+                    uploadPreset="Food_Delivery_Food"
+                  />
                 </Button>
               </div>
             </div>

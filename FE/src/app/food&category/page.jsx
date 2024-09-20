@@ -12,7 +12,7 @@ export const DataContext = createContext();
 const page = () => {
   const router = useRouter();
 
-  const { response, loading, error } = useFoodsAndCategories();
+  const { response, loading, error, refetch } = useFoodsAndCategories();
 
   useEffect(() => {
     router.push(`/food&category?category=${0}`);
@@ -20,7 +20,8 @@ const page = () => {
 
   const handlerDeleteClick = async (categoryId) => {
     await axiosInstance.delete(`/category/categoryDelete/${categoryId}`);
-    router.push(`/food&category?category=${0}`);
+    router.push(`/food&category?category=0`);
+    refetch(categoryId);
   };
 
   return (
@@ -28,9 +29,11 @@ const page = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex flex-row ">
-          <AdminSideBar />
-          <Foods />
+        <div className="bg-gradient-to-r from-white via-white to-[#F7F7F8]">
+          <div className="flex flex-row max-w-[1440px] mx-auto ">
+            <AdminSideBar />
+            <Foods />
+          </div>
         </div>
       )}
     </DataContext.Provider>

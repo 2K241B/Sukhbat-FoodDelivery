@@ -4,6 +4,7 @@ import Feature from '@/components/Feature';
 import HomePageMain from '@/components/HomePageMain';
 import Loading from '@/components/Loading';
 import { useFoodsAndCategories } from '@/hooks/useFoodsAndCategories';
+import { CldImage, CldUploadButton } from 'next-cloudinary';
 
 export default function Home() {
   const { response, loading, error } = useFoodsAndCategories();
@@ -29,6 +30,7 @@ export default function Home() {
             )}
         </div>
       )}
+      <CldUploadButton uploadPreset="Food_Delivery_Food" />
     </main>
   );
 }

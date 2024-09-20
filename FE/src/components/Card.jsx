@@ -1,10 +1,11 @@
 'use client';
+import { CldImage } from 'next-cloudinary';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 const styles = {
   container: 'flex flex-col gap-[14px] items-start',
-  imgContainer: 'relative w-[282px] min-h-[186px] rounded-2xl',
+  imgContainer: 'relative rounded-2xl',
   discount:
     ' absolute rounded-2xl py-1 px-4 text-lg font-semibold text-white bg-[#18BA51] border-white border-[1px] flex justify-center items-center top-4 right-4',
   title: 'text-[20px] font-[590] text-start',
@@ -17,17 +18,18 @@ export const Card = ({ imageSrc, title, price, discount, alt, params }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image
-          src={imageSrc}
-          fill
-          objectFit="cover"
-          className="rounded-2xl "
-          alt={alt}
-          sizes="(max-width: 282px), (max-height: 186px)"
+        <CldImage
+          src="ow30vsg7aimgo89may5n"
+          className=" rounded-2xl relative"
+          width="282"
+          height="186"
+          crop={{
+            type: 'auto',
+            source: true,
+          }}
         />
         {discount && <div className={styles.discount}>{discount}%</div>}
       </div>
-
       <div>
         <h2 className={styles.title}>{title}</h2>
         <div className="flex gap-4">
