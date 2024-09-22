@@ -14,10 +14,12 @@ import Image from 'next/image';
 import kk from '@/components/assets/deliveryZone.png';
 import PlusIcon from './icons/PlusIcon';
 import MinusIcon from './icons/MinusIcon';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Card from './Card';
 import { X } from 'lucide-react';
 import { CldImage } from 'next-cloudinary';
+import { LayoutContext } from '@/components/Provider';
+
 const style = {
   container: 'flex flex-col gap-[14px] items-start',
   imgContainer: 'relative w-[282px] min-h-[186px] rounded-2xl',
@@ -51,8 +53,10 @@ export const OrderDetailDialog = ({
   discount,
   alt,
   params,
+  data,
 }) => {
   const [current, setCurrent] = useState(1);
+  const { setCartItem, cartItem } = useContext(LayoutContext);
   useEffect(() => {
     if (current < 1) return setCurrent(1);
   }, [current]);
@@ -117,7 +121,11 @@ export const OrderDetailDialog = ({
             </Button>
           </div>
           <DialogClose>
-            <Button className={styles.submitButton} type="submit">
+            <Button
+              onClick={() => setCartItem([...cartItem, params])}
+              className={styles.submitButton}
+              type="submit"
+            >
               Сагслах
             </Button>
           </DialogClose>

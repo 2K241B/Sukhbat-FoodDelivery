@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import MinusIcon from './icons/MinusIcon';
 import PlusIcon from './icons/PlusIcon';
 import { useEffect, useState } from 'react';
+import { CldImage } from 'next-cloudinary';
 
 const styles = {
   container: 'py-6 px-4 border-b grid grid-cols-2 gap-4',
@@ -19,7 +20,7 @@ const styles = {
   recipe: 'text-[#767676] text-[16px]',
 };
 
-export const CartCard = ({ imageSrc, name, price, recipe, salePrice }) => {
+export const CartCard = ({ imageSrc, name, price, recipe, salePrice, alt }) => {
   const [current, setCurrent] = useState(1);
   useEffect(() => {
     if (current < 1) return setCurrent(1);
@@ -27,11 +28,16 @@ export const CartCard = ({ imageSrc, name, price, recipe, salePrice }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
-        <Image
+        <CldImage
           src={imageSrc}
-          style={{ objectFit: 'cover' }}
-          layout="fill"
-          alt={imageSrc}
+          className=" rounded-2xl relative"
+          width="282"
+          height="186"
+          alt={alt}
+          crop={{
+            type: 'auto',
+            source: true,
+          }}
         />
       </div>
       <div className={styles.subContainer}>

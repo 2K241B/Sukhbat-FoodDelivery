@@ -1,3 +1,4 @@
+'use client';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,6 +13,10 @@ import ArrowLeftIcon from './icons/arrowLeftIcon';
 import food from '@/components/assets/cardFood.png';
 import CartCard from './CartCard';
 import CartIcon from './icons/CartIcon';
+import { useContext, useMemo } from 'react';
+import { LayoutContext } from './Provider';
+import { useGetFoods } from '@/hooks/useGetFoods';
+import _ from 'lodash';
 
 const styles = {
   container: 'flex flex-col p-6 pb-0 h-full overflow-auto',
@@ -23,6 +28,18 @@ const styles = {
 };
 
 export const Cart = () => {
+  const { cartItem } = useContext(LayoutContext);
+  const { response, loading, error } = useGetFoods();
+
+  const filteredFoods = useMemo(
+    () =>
+      response &&
+      response.filter((food, i) => {
+        return (food._id = cartItem[i]);
+      }),
+    [cartItem]
+  );
+  console.log(filteredFoods);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -40,19 +57,24 @@ export const Cart = () => {
             <AlertDialogTitle>Таны сагс</AlertDialogTitle>
           </AlertDialogHeader>
           <div className="flex flex-col h-full ">
-            <CartCard
-              name="Өглөөний хоол"
-              imageSrc={food}
-              price={4800}
-              salePrice={6000}
-              recipe="Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр  "
-            />
+            {filteredFoods &&
+              filteredFoods.map((food) => (
+                <CartCard
+                  name={food.name}
+                  alt={food.name}
+                  imageSrc={food.image}
+                  price={food.price}
+                  recipe={food.ingeredient}
+                />
+              ))}
           </div>
         </div>
         <AlertDialogFooter>
           <div>
             <p className={styles.p}>Нийт төлөх дүн</p>
-            <h2 className={styles.totalAmount}>34,800₮</h2>
+            <h2 className={styles.totalAmount}>
+              {_.sumBy(filteredFoods, 'price')}
+            </h2>
           </div>
           <Button className={styles.button}>Захиалах</Button>
         </AlertDialogFooter>

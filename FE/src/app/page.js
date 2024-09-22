@@ -4,12 +4,9 @@ import Feature from '@/components/Feature';
 import HomePageMain from '@/components/HomePageMain';
 import Loading from '@/components/Loading';
 import { useFoodsAndCategories } from '@/hooks/useFoodsAndCategories';
-import { CldUploadButton } from 'next-cloudinary';
-import { useEffect } from 'react';
 
 export default function Home() {
   const { response, loading, error } = useFoodsAndCategories();
-  useEffect(() => {}, []);
 
   return (
     <main>
