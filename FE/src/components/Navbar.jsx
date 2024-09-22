@@ -30,7 +30,6 @@ export const Navbar = () => {
   if (encodedToken) {
     const decoded = jwtDecode(encodedToken);
   }
-
   const router = useRouter();
   return (
     <div className={styles.container}>

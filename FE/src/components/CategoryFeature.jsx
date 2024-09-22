@@ -31,6 +31,7 @@ export const CategoryFeature = ({ categoryName, data, href }) => {
             .slice(0, 4)
             .map((data) => (
               <OrderDetailDialog
+                data={data}
                 params={data._id}
                 name={data.name}
                 imageSrc={data.image}
