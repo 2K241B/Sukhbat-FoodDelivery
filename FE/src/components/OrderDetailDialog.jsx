@@ -3,15 +3,9 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from './ui/button';
-import Image from 'next/image';
-import kk from '@/components/assets/deliveryZone.png';
 import PlusIcon from './icons/PlusIcon';
 import MinusIcon from './icons/MinusIcon';
 import { useContext, useEffect, useState } from 'react';
@@ -57,9 +51,13 @@ export const OrderDetailDialog = ({
 }) => {
   const [current, setCurrent] = useState(1);
   const { setCartItem, cartItem } = useContext(LayoutContext);
+  const handlerSetCart = (count) => {
+    setCartItem([...cartItem, { product: data, count: count }]);
+  };
   useEffect(() => {
     if (current < 1) return setCurrent(1);
-  }, [current]);
+    localStorage.setItem('cart', JSON.stringify(cartItem));
+  }, [current, handlerSetCart]);
   return (
     <Dialog>
       <DialogTrigger>
@@ -122,7 +120,7 @@ export const OrderDetailDialog = ({
           </div>
           <DialogClose>
             <Button
-              onClick={() => setCartItem([...cartItem, params])}
+              onClick={() => handlerSetCart(current)}
               className={styles.submitButton}
               type="submit"
             >
