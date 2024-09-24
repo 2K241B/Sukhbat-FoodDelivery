@@ -20,16 +20,7 @@ const styles = {
   recipe: 'text-[#767676] text-[16px]',
 };
 
-export const CartCard = ({
-  imageSrc,
-  name,
-  price,
-  recipe,
-  salePrice,
-  alt,
-  setTotalPrice,
-  totalPrice,
-}) => {
+export const CartCard = ({ imageSrc, name, price, recipe, salePrice, alt }) => {
   const [current, setCurrent] = useState(1);
   useEffect(() => {
     if (current < 1) return setCurrent(1);
@@ -38,7 +29,7 @@ export const CartCard = ({
     <div className={styles.container}>
       <div className={styles.imageContainer}>
         <CldImage
-          src={imageSrc}
+          // src={imageSrc}
           className=" rounded-2xl relative"
           width="282"
           height="186"

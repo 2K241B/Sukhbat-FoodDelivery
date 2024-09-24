@@ -12,7 +12,6 @@ import { useContext, useEffect, useState } from 'react';
 import Card from './Card';
 import { X } from 'lucide-react';
 import { CldImage } from 'next-cloudinary';
-import { LayoutContext } from '@/components/Provider';
 
 const style = {
   container: 'flex flex-col gap-[14px] items-start',
@@ -50,14 +49,10 @@ export const OrderDetailDialog = ({
   data,
 }) => {
   const [current, setCurrent] = useState(1);
-  const { setCartItem, cartItem } = useContext(LayoutContext);
-  const handlerSetCart = (count) => {
-    setCartItem([...cartItem, { product: data, count: count }]);
-  };
+
   useEffect(() => {
     if (current < 1) return setCurrent(1);
-    localStorage.setItem('cart', JSON.stringify(cartItem));
-  }, [current, handlerSetCart]);
+  }, [current]);
   return (
     <Dialog>
       <DialogTrigger>
@@ -119,11 +114,7 @@ export const OrderDetailDialog = ({
             </Button>
           </div>
           <DialogClose>
-            <Button
-              onClick={() => handlerSetCart(current)}
-              className={styles.submitButton}
-              type="submit"
-            >
+            <Button className={styles.submitButton} type="submit">
               Сагслах
             </Button>
           </DialogClose>
