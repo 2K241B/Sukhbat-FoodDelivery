@@ -14,9 +14,6 @@ import food from '@/components/assets/cardFood.png';
 import CartCard from './CartCard';
 import CartIcon from './icons/CartIcon';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { LayoutContext } from './Provider';
-import { useGetFoods } from '@/hooks/useGetFoods';
-import _ from 'lodash';
 
 const styles = {
   container: 'flex flex-col p-6 pb-0 h-full overflow-auto',
@@ -28,14 +25,6 @@ const styles = {
 };
 
 export const Cart = () => {
-  const { cartItem } = useContext(LayoutContext);
-  const [cartItems, setCartItems] = useState();
-  const { response, loading, error } = useGetFoods();
-  useEffect(() => {
-    const CartItems = JSON.parse(localStorage.getItem('cart'));
-    setCartItems(CartItems);
-    console.log(CartItems);
-  }, [cartItem]);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -53,24 +42,19 @@ export const Cart = () => {
             <AlertDialogTitle>Таны сагс</AlertDialogTitle>
           </AlertDialogHeader>
           <div className="flex flex-col h-full ">
-            {cartItems &&
-              cartItems.map((food) => (
-                <CartCard
-                  name={food.product.name}
-                  alt={food.product.name}
-                  imageSrc={food.product.image}
-                  price={food.product.price}
-                  recipe={food.product.ingeredient}
-                />
-              ))}
+            <CartCard
+              name="Өглөөний хоол"
+              imageSrc={food}
+              price={4800}
+              salePrice={6000}
+              recipe="Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр  "
+            />
           </div>
         </div>
         <AlertDialogFooter>
           <div>
             <p className={styles.p}>Нийт төлөх дүн</p>
-            <h2 className={styles.totalAmount}>
-              {/* {_.sumBy(filteredFoods, 'price')} */}
-            </h2>
+            <h2 className={styles.totalAmount}>34,800₮</h2>
           </div>
           <Button className={styles.button}>Захиалах</Button>
         </AlertDialogFooter>

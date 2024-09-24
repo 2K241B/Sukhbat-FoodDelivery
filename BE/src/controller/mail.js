@@ -32,7 +32,7 @@ export const sendMail = async (options) => {
 </div>`,
   };
   try {
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, (error, info) => {
       if (info) {
         return res.status(200).json(info.messageId);
       }
