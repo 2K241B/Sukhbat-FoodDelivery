@@ -20,7 +20,16 @@ const styles = {
   recipe: 'text-[#767676] text-[16px]',
 };
 
-export const CartCard = ({ imageSrc, name, price, recipe, salePrice, alt }) => {
+export const CartCard = ({
+  imageSrc,
+  name,
+  price,
+  recipe,
+  salePrice,
+  alt,
+  setTotalPrice,
+  totalPrice,
+}) => {
   const [current, setCurrent] = useState(1);
   useEffect(() => {
     if (current < 1) return setCurrent(1);

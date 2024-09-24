@@ -13,7 +13,7 @@ import ArrowLeftIcon from './icons/arrowLeftIcon';
 import food from '@/components/assets/cardFood.png';
 import CartCard from './CartCard';
 import CartIcon from './icons/CartIcon';
-import { useContext, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { LayoutContext } from './Provider';
 import { useGetFoods } from '@/hooks/useGetFoods';
 import _ from 'lodash';
@@ -29,17 +29,13 @@ const styles = {
 
 export const Cart = () => {
   const { cartItem } = useContext(LayoutContext);
+  const [cartItems, setCartItems] = useState();
   const { response, loading, error } = useGetFoods();
-
-  const filteredFoods = useMemo(
-    () =>
-      response &&
-      response.filter((food, i) => {
-        return (food._id = cartItem[i]);
-      }),
-    [cartItem]
-  );
-  console.log(filteredFoods);
+  useEffect(() => {
+    const CartItems = JSON.parse(localStorage.getItem('cart'));
+    setCartItems(CartItems);
+    console.log(CartItems);
+  }, [cartItem]);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -57,14 +53,14 @@ export const Cart = () => {
             <AlertDialogTitle>Таны сагс</AlertDialogTitle>
           </AlertDialogHeader>
           <div className="flex flex-col h-full ">
-            {filteredFoods &&
-              filteredFoods.map((food) => (
+            {cartItems &&
+              cartItems.map((food) => (
                 <CartCard
-                  name={food.name}
-                  alt={food.name}
-                  imageSrc={food.image}
-                  price={food.price}
-                  recipe={food.ingeredient}
+                  name={food.product.name}
+                  alt={food.product.name}
+                  imageSrc={food.product.image}
+                  price={food.product.price}
+                  recipe={food.product.ingeredient}
                 />
               ))}
           </div>
@@ -73,7 +69,7 @@ export const Cart = () => {
           <div>
             <p className={styles.p}>Нийт төлөх дүн</p>
             <h2 className={styles.totalAmount}>
-              {_.sumBy(filteredFoods, 'price')}
+              {/* {_.sumBy(filteredFoods, 'price')} */}
             </h2>
           </div>
           <Button className={styles.button}>Захиалах</Button>
