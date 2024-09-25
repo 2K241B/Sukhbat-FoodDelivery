@@ -6,6 +6,7 @@ import MinusIcon from './icons/MinusIcon';
 import PlusIcon from './icons/PlusIcon';
 import { useEffect, useState } from 'react';
 import { CldImage } from 'next-cloudinary';
+import { axiosInstance } from '@/lib/axios';
 
 const styles = {
   container: 'py-6 px-4 border-b grid grid-cols-2 gap-4',
@@ -20,16 +21,32 @@ const styles = {
   recipe: 'text-[#767676] text-[16px]',
 };
 
-export const CartCard = ({ imageSrc, name, price, recipe, salePrice, alt }) => {
-  const [current, setCurrent] = useState(1);
-  useEffect(() => {
-    if (current < 1) return setCurrent(1);
-  }, [current]);
+export const CartCard = ({
+  imageSrc,
+  name,
+  price,
+  recipe,
+  discount,
+  alt,
+  quantity,
+  id,
+}) => {
+  const cartId = localStorage.getItem('cartId');
+  const handlerDelete = async () => {
+    const res = await axiosInstance.delete(
+      `/cart/deleteCart/66f3812cfc3aa99edd6c6c09`,
+      {
+        productId: '66edb047918e3d95a0cbb413',
+      }
+    );
+    console.log(res);
+    console.log(productId);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
         <CldImage
-          // src={imageSrc}
+          src={imageSrc}
           className=" rounded-2xl relative"
           width="282"
           height="186"
@@ -45,26 +62,28 @@ export const CartCard = ({ imageSrc, name, price, recipe, salePrice, alt }) => {
           <div>
             <h2 className={styles.header}>{name}</h2>
             <div className="flex items-center gap-3">
-              <p className={styles.price}>{price}₮</p>
-              {salePrice && <p className={styles.salePrice}>{salePrice}₮</p>}
+              {discount ? (
+                <p className={styles.price}>
+                  {price - (price / 100) * discount}₮
+                </p>
+              ) : (
+                <p className={styles.price}>{price}₮</p>
+              )}
+              {discount && <p className={styles.salePrice}>{price}₮</p>}
             </div>
           </div>
-          <X size={20} />
+          <div onClick={handlerDelete}>
+            <X size={20} />
+          </div>
         </div>
 
         <p className={styles.recipe}>{recipe}</p>
         <div className={styles.buttonContainer}>
-          <Button
-            onClick={() => setCurrent(current - 1)}
-            className={styles.button}
-          >
+          <Button className={styles.button}>
             <MinusIcon />
           </Button>
-          <p className="text-center px-[30px]">{current}</p>
-          <Button
-            onClick={() => setCurrent(current + 1)}
-            className={styles.button}
-          >
+          <p className="text-center px-[30px]">{quantity}</p>
+          <Button className={styles.button}>
             <PlusIcon />
           </Button>
         </div>
