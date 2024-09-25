@@ -12,6 +12,9 @@ import { useContext, useEffect, useState } from 'react';
 import Card from './Card';
 import { X } from 'lucide-react';
 import { CldImage } from 'next-cloudinary';
+import { axiosInstance } from '@/lib/axios';
+import { useCookies } from 'next-client-cookies';
+import { jwtDecode } from 'jwt-decode';
 
 const style = {
   container: 'flex flex-col gap-[14px] items-start',
@@ -48,11 +51,27 @@ export const OrderDetailDialog = ({
   params,
   data,
 }) => {
-  const [current, setCurrent] = useState(1);
+  const cookies = useCookies();
+  const encodedToken = cookies.get('token');
+  const decoded = encodedToken && jwtDecode(encodedToken);
+  const user = decoded && decoded._doc;
+
+  const [quantity, setQuantity] = useState(1);
+  const handlerCart = async () => {
+    if (encodedToken) {
+      const { data } = await axiosInstance.post('/cart/create', {
+        quantity: quantity,
+        productId: params,
+        userId: user._id,
+        _id: localStorage.getItem('cartId') && localStorage.getItem('cartId'),
+      });
+      localStorage.setItem('cartId', data._id);
+    }
+  };
 
   useEffect(() => {
-    if (current < 1) return setCurrent(1);
-  }, [current]);
+    if (quantity < 1) return setQuantity(1);
+  }, [quantity]);
   return (
     <Dialog>
       <DialogTrigger>
@@ -100,21 +119,25 @@ export const OrderDetailDialog = ({
           <h4 className={styles.subHeader}>Тоо</h4>
           <div className={styles.buttonContainer}>
             <Button
-              onClick={() => setCurrent(current - 1)}
+              onClick={() => setQuantity(quantity - 1)}
               className={styles.button}
             >
               <MinusIcon />
             </Button>
-            <p className={styles.current}>{current}</p>
+            <p className={styles.current}>{quantity}</p>
             <Button
-              onClick={() => setCurrent(current + 1)}
+              onClick={() => setQuantity(quantity + 1)}
               className={styles.button}
             >
               <PlusIcon />
             </Button>
           </div>
           <DialogClose>
-            <Button className={styles.submitButton} type="submit">
+            <Button
+              onClick={handlerCart}
+              className={styles.submitButton}
+              type="submit"
+            >
               Сагслах
             </Button>
           </DialogClose>

@@ -10,10 +10,10 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import ArrowLeftIcon from './icons/arrowLeftIcon';
-import food from '@/components/assets/cardFood.png';
 import CartCard from './CartCard';
 import CartIcon from './icons/CartIcon';
 import { useContext, useEffect, useMemo, useState } from 'react';
+import { axiosInstance } from '@/lib/axios';
 
 const styles = {
   container: 'flex flex-col p-6 pb-0 h-full overflow-auto',
@@ -25,6 +25,16 @@ const styles = {
 };
 
 export const Cart = () => {
+  const [cartFoods, setCartFoods] = useState();
+  const cartId = localStorage.getItem('cartId');
+
+  useEffect(() => {
+    const getCart = async () => {
+      const { data } = await axiosInstance.get(`/cart/getCart/${cartId}`);
+      data && setCartFoods(data.products);
+    };
+    getCart();
+  }, []);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -42,13 +52,18 @@ export const Cart = () => {
             <AlertDialogTitle>Таны сагс</AlertDialogTitle>
           </AlertDialogHeader>
           <div className="flex flex-col h-full ">
-            <CartCard
-              name="Өглөөний хоол"
-              imageSrc={food}
-              price={4800}
-              salePrice={6000}
-              recipe="Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр  "
-            />
+            {cartFoods &&
+              cartFoods.map((product) => (
+                <CartCard
+                  id={product.productId._id}
+                  name={product.productId.name}
+                  imageSrc={product.productId.image}
+                  price={product.productId.price}
+                  discount={product.productId.discount}
+                  quantity={product.quantity}
+                  recipe={product.productId.ingeredient}
+                />
+              ))}
           </div>
         </div>
         <AlertDialogFooter>
