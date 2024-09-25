@@ -3,7 +3,7 @@ import { model, Schema } from 'mongoose';
 const cartSchema = new Schema({
   products: [
     {
-      quantity: { type: String, default: 1 },
+      quantity: { type: String },
       productId: {
         type: Schema.ObjectId,
         ref: 'food',

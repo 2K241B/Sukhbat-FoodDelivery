@@ -7,6 +7,7 @@ import PlusIcon from './icons/PlusIcon';
 import { useEffect, useState } from 'react';
 import { CldImage } from 'next-cloudinary';
 import { axiosInstance } from '@/lib/axios';
+import { useRouter } from 'next/navigation';
 
 const styles = {
   container: 'py-6 px-4 border-b grid grid-cols-2 gap-4',
@@ -33,15 +34,14 @@ export const CartCard = ({
 }) => {
   const cartId = localStorage.getItem('cartId');
   const handlerDelete = async () => {
-    const res = await axiosInstance.delete(
-      `/cart/deleteCart/66f3812cfc3aa99edd6c6c09`,
-      {
-        productId: '66edb047918e3d95a0cbb413',
-      }
-    );
-    console.log(res);
-    console.log(productId);
+    await axiosInstance.post(`/cart/deleteCartItem`, {
+      id: cartId,
+      productId: id,
+    });
   };
+  useEffect(() => {
+    console.log(quantity);
+  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
