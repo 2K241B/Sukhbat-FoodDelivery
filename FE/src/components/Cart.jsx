@@ -28,15 +28,22 @@ export const Cart = () => {
   const [cartFoods, setCartFoods] = useState();
   const cartId = localStorage.getItem('cartId');
 
+  const [open, setOpen] = useState(false);
+
+  const toggleOpen = () => {
+    setOpen(!open);
+  };
+
   useEffect(() => {
     const getCart = async () => {
-      const { data } = await axiosInstance.get(`/cart/getCart/${cartId}`);
-      data && setCartFoods(data.products);
+      const res = await axiosInstance.get(`/cart/getCart/${cartId}`);
+      // data && setCartFoods(data.products);
+      console.log(res);
     };
-    getCart();
-  }, []);
+    cartId && getCart();
+  }, [open]);
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={toggleOpen}>
       <AlertDialogTrigger asChild>
         <div className={styles.contentContainer}>
           <CartIcon />
@@ -52,7 +59,7 @@ export const Cart = () => {
             <AlertDialogTitle>Таны сагс</AlertDialogTitle>
           </AlertDialogHeader>
           <div className="flex flex-col h-full ">
-            {cartFoods &&
+            {/* {cartFoods &&
               cartFoods.map((product) => (
                 <CartCard
                   id={product.productId._id}
@@ -63,7 +70,7 @@ export const Cart = () => {
                   quantity={product.quantity}
                   recipe={product.productId.ingeredient}
                 />
-              ))}
+              ))} */}
           </div>
         </div>
         <AlertDialogFooter>

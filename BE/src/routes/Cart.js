@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   createCart,
-  deleteCarts,
+  deleteCartItem,
   getCart,
   getCarts,
 } from '../controller/cart.js';
@@ -12,6 +12,6 @@ cart
   .post('/create', createCart)
   .get('/getCart/:id', getCart)
   .get('/getCarts', getCarts)
-  .delete('/deleteCart/:id', deleteCarts);
+  .post('/deleteCartItem', deleteCartItem);
 
 export default cart;

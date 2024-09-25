@@ -8,7 +8,7 @@ import {
 import { Button } from './ui/button';
 import PlusIcon from './icons/PlusIcon';
 import MinusIcon from './icons/MinusIcon';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from './Card';
 import { X } from 'lucide-react';
 import { CldImage } from 'next-cloudinary';
