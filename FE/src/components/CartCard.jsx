@@ -31,17 +31,23 @@ export const CartCard = ({
   alt,
   quantity,
   id,
+  handlerDelete,
+  cartId,
+  cartFoods,
 }) => {
-  const cartId = localStorage.getItem('cartId');
-  const handlerDelete = async () => {
-    await axiosInstance.post(`/cart/deleteCartItem`, {
-      id: cartId,
+  const [current, setCurrent] = useState(quantity);
+
+  const updateQuantity = async () => {
+    await axiosInstance.put(`/cart/updateQuantity/${cartId}`, {
       productId: id,
+      quantity: current,
     });
   };
+
   useEffect(() => {
-    console.log(quantity);
-  }, []);
+    if (current < 1) return setCurrent(1);
+    updateQuantity();
+  }, [current]);
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -64,26 +70,34 @@ export const CartCard = ({
             <div className="flex items-center gap-3">
               {discount ? (
                 <p className={styles.price}>
-                  {price - (price / 100) * discount}₮
+                  {price * current - ((price * current) / 100) * discount}₮
                 </p>
               ) : (
-                <p className={styles.price}>{price}₮</p>
+                <p className={styles.price}>{price * current}₮</p>
               )}
-              {discount && <p className={styles.salePrice}>{price}₮</p>}
+              {discount && (
+                <p className={styles.salePrice}>{price * current}₮</p>
+              )}
             </div>
           </div>
-          <div onClick={handlerDelete}>
+          <div onClick={() => handlerDelete(id)} className="cursor-pointer">
             <X size={20} />
           </div>
         </div>
 
         <p className={styles.recipe}>{recipe}</p>
         <div className={styles.buttonContainer}>
-          <Button className={styles.button}>
+          <Button
+            onClick={() => setCurrent(current - 1)}
+            className={styles.button}
+          >
             <MinusIcon />
           </Button>
-          <p className="text-center px-[30px]">{quantity}</p>
-          <Button className={styles.button}>
+          <p className="text-center px-[30px]">{current}</p>
+          <Button
+            onClick={() => setCurrent(current + 1)}
+            className={styles.button}
+          >
             <PlusIcon />
           </Button>
         </div>
