@@ -14,7 +14,7 @@ const orderSchema = new Schema({
       required: [true, 'foods is required'],
     },
   ],
-  totalPrice: Number,
+  totalPrice: String,
   process: {
     type: String,
     enum: ['active', 'waiting', 'process', 'delivered'],

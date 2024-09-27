@@ -10,6 +10,7 @@ import category from './routes/Category.js';
 import food from './routes/Food.js';
 import otp from './routes/otp.js';
 import cart from './routes/Cart.js';
+import order from './routes/order.js';
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use('/category', category);
 app.use('/food', food);
 app.use('/otp', otp);
 app.use('/cart', cart);
+app.use('/order', order);
 
 app.listen(PORT, () => {
   Connect(process.env.MONGODB_CONNECTION_STRING);

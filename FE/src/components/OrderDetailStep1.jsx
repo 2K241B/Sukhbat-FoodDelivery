@@ -5,7 +5,7 @@ import WaitingIcon from '@/components/icons/WaitingIcon';
 const styles = {
   container: 'flex flex-col gap-6 ',
   headerContainer: 'p-6 flex items-center gap-4',
-  form: 'p-6 w-[432px] flex flex-col gap-10 rounded-2xl shadow-lg',
+  form: 'p-6 w-[432px] flex flex-col gap-10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]',
   selectContainer: 'flex flex-col gap-4',
   textarea:
     'h-[112px] w-full bg-[#F7F7F8] border border-[#ECEDF0] text-[#8B8E95] px-4 py-2 rounded-[4px]',

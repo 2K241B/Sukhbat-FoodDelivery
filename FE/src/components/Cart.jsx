@@ -12,8 +12,10 @@ import { Button } from '@/components/ui/button';
 import ArrowLeftIcon from './icons/arrowLeftIcon';
 import CartCard from './CartCard';
 import CartIcon from './icons/CartIcon';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { axiosInstance } from '@/lib/axios';
+import { useRouter } from 'next/navigation';
+import { AlertDialogAction } from '@radix-ui/react-alert-dialog';
 
 const styles = {
   container: 'flex flex-col p-6 pb-0 h-full overflow-auto',
@@ -25,6 +27,7 @@ const styles = {
 };
 
 export const Cart = () => {
+  const router = useRouter();
   const [cartFoods, setCartFoods] = useState();
   const cartId = localStorage.getItem('cartId');
   const [totalPrice, setTotalPrice] = useState();
@@ -114,7 +117,14 @@ export const Cart = () => {
             <p className={styles.p}>Нийт төлөх дүн</p>
             <h2 className={styles.totalAmount}>{totalPrice}₮</h2>
           </div>
-          <Button className={styles.button}>Захиалах</Button>
+          <AlertDialogAction>
+            <Button
+              onClick={() => router.push('/orderdetail')}
+              className={styles.button}
+            >
+              Захиалах
+            </Button>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
