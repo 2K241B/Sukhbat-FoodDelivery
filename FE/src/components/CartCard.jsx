@@ -34,6 +34,7 @@ export const CartCard = ({
   handlerDelete,
   cartId,
   cartFoods,
+  isOrder = false,
 }) => {
   const [current, setCurrent] = useState(quantity);
 
@@ -49,20 +50,40 @@ export const CartCard = ({
     updateQuantity();
   }, [current]);
   return (
-    <div className={styles.container}>
-      <div className={styles.imageContainer}>
+    <div
+      className={
+        isOrder
+          ? `${styles.container} items-center px-0 py-4`
+          : styles.container
+      }
+    >
+      {isOrder ? (
         <CldImage
           src={imageSrc}
           className=" rounded-2xl relative"
-          width="282"
-          height="186"
+          width="184"
+          height="131"
           alt={alt}
           crop={{
             type: 'auto',
             source: true,
           }}
         />
-      </div>
+      ) : (
+        <div className={styles.imageContainer}>
+          <CldImage
+            src={imageSrc}
+            className=" rounded-2xl relative"
+            width="282"
+            height="186"
+            alt={alt}
+            crop={{
+              type: 'auto',
+              source: true,
+            }}
+          />
+        </div>
+      )}
       <div className={styles.subContainer}>
         <div className={styles.headerContainer}>
           <div>
@@ -80,27 +101,31 @@ export const CartCard = ({
               )}
             </div>
           </div>
-          <div onClick={() => handlerDelete(id)} className="cursor-pointer">
-            <X size={20} />
-          </div>
+          {!isOrder && (
+            <div onClick={() => handlerDelete(id)} className="cursor-pointer">
+              <X size={20} />
+            </div>
+          )}
         </div>
 
         <p className={styles.recipe}>{recipe}</p>
-        <div className={styles.buttonContainer}>
-          <Button
-            onClick={() => setCurrent(current - 1)}
-            className={styles.button}
-          >
-            <MinusIcon />
-          </Button>
-          <p className="text-center px-[30px]">{current}</p>
-          <Button
-            onClick={() => setCurrent(current + 1)}
-            className={styles.button}
-          >
-            <PlusIcon />
-          </Button>
-        </div>
+        {!isOrder && (
+          <div className={styles.buttonContainer}>
+            <Button
+              onClick={() => setCurrent(current - 1)}
+              className={styles.button}
+            >
+              <MinusIcon />
+            </Button>
+            <p className="text-center px-[30px]">{current}</p>
+            <Button
+              onClick={() => setCurrent(current + 1)}
+              className={styles.button}
+            >
+              <PlusIcon />
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
